@@ -9,14 +9,23 @@ This website will allow users create listings for items they would like to sell.
 <br>
 <p>
 - The main goal I have for this project will be implimenting web services into my website.
+  
 - Get basic auction site functionality
+
 - Email verification
+
 - Data encryption
+
 - Optimized search results
+
 - Google maps to the provided addresses.
+
 - Have something that looks nicer than craigslist.
+
 - Sign in through google account (stretch goal)
+
 - Cloud Storage (stretch goal)
+
 </p>
 <br>
 <h2><b>Contact Information:</b></h2>
