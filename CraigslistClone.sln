@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigslistClone", "CraigslistClone\CraigslistClone.csproj", "{6ED0E95C-EBB2-4629-9A27-85605B2FDCB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ED0E95C-EBB2-4629-9A27-85605B2FDCB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED0E95C-EBB2-4629-9A27-85605B2FDCB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED0E95C-EBB2-4629-9A27-85605B2FDCB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED0E95C-EBB2-4629-9A27-85605B2FDCB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E770FC39-96B4-464F-BDE8-04DBA2B9B066}
+	EndGlobalSection
+EndGlobal
