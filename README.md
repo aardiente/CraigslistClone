@@ -3,7 +3,7 @@ A basic forum / auction website.
 
 This website will allow users create listings for items they would like to sell.
 
-<h1><b> Goals </b><h/1>
+<h1><b> Goals </b></h1>
 - The main goal I have for this project will be implimenting web services into my website.
 - Get basic auction site functionality
 - Email verification
