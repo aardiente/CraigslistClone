@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CraigslistClone.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,5 +13,10 @@ namespace CraigslistClone.Data
             : base(options)
         {
         }
+
+        // Add new entities here if needed
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Thread> Threads { get; set; }
+        public DbSet<Listing> Listings { get; set; }
     }
 }
