@@ -24,8 +24,7 @@ namespace CraigslistClone.Areas.Identity.Pages.Account.Manage
             _logger = logger;
         }
 
-        [BindProperty]
-        public InputModel Input { get; set; }
+        [BindProperty] public InputModel Input { get; set; }
 
         public class InputModel
         {

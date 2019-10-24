@@ -1,5 +1,3 @@
-using System;
-
 namespace CraigslistClone.Models
 {
     public class ErrorViewModel
