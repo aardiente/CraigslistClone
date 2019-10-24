@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CraigslistClone.Models.Services
@@ -15,6 +13,6 @@ namespace CraigslistClone.Models.Services
         Task Delete(int id);
         Task EditListingContent(int id, string newContent);
 
-        IEnumerable<Listing> GetListingsByThread(int id);
+        IEnumerable<Listing> GetListingsByCategory(int id);
     }
 }

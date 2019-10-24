@@ -10,7 +10,7 @@ namespace CraigslistClone.Models.Services
     {
         private readonly ApplicationDbContext _context;
 
-        public ListingService( ApplicationDbContext context )
+        public ListingService(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -45,9 +45,9 @@ namespace CraigslistClone.Models.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Listing> GetListingsByThread(int id)
+        public IEnumerable<Listing> GetListingsByCategory(int id)
         {
-            return _context.Threads.Where(thread => thread.Id == id).FirstOrDefault().Listings;
+            return _context.Categories.Where(category => category.Id == id).FirstOrDefault().Listings;
         }
     }
 }

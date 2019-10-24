@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CraigslistClone.Models
 {
@@ -14,6 +11,6 @@ namespace CraigslistClone.Models
         public DateTime Expires { get; set; }
 
         public virtual ApplicationUser User { get; set; }
-        public virtual Thread hostThread { get; set; }
+        public virtual Category HostCategory { get; set; }
     }
 }

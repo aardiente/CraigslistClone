@@ -1,14 +1,11 @@
 ﻿using CraigslistClone.Views.Listings;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CraigslistClone.Models
 {
-    public class ThreadTopicModel
+    public class CategoryTopicModel
     {
-        public ThreadListingModel Thread { get; set; }
+        public CategoryListingModel Category { get; set; }
         public IEnumerable<ListingPostModel> Listings { get; set; }
     }
 }

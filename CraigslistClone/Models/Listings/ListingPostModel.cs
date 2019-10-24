@@ -1,8 +1,5 @@
 ﻿using CraigslistClone.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CraigslistClone.Views.Listings
 {
@@ -15,8 +12,6 @@ namespace CraigslistClone.Views.Listings
         public DateTime PostDate { get; set; }
         public DateTime ExpireDate { get; set; }
 
-        public ThreadListingModel Thread { get; set; }
-        
-
+        public CategoryListingModel Category { get; set; }
     }
 }
