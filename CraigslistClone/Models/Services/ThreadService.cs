@@ -21,7 +21,7 @@ namespace CraigslistClone.Models.Services
         {
             var thread = _context.Threads.Where(t => t.Id == ID)
                 .Include(t => t.Listings)
-                    //.ThenInclude(l => l.UserName) // This may be incorrect we want listings
+                    //.ThenInclude(l => l.User.User_ID) // This may be incorrect we want listings
                     .FirstOrDefault(); 
 
             return thread;

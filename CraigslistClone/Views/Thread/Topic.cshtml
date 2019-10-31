@@ -4,39 +4,41 @@
     ViewData["Title"] = "Topic";
 }
 
-<h1>Welcome to the @Model.Thread.Name Thread!</h1>
+<h1>Check out all of the @Model.Thread.Name listings!</h1>
 
-<div class="row" id="forumIndexContent">
-@if( Model.Listings.Any() )
-{
-    <table class="table table-bordered table-hover">
-        <tbody>
-            @foreach( var listing in Model.Listings )
-            {
-            <tr>
-                <td>
-                    <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
-                        @listing.Title
-                    </a>
-                </td>
-                <td>
-                    @listing.Author
-                </td>
-                <td>
-                    @listing.PostDate
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <div class="noPosts">
-        <h3>
-            It looks like there are no listings in @Model.Thread.Name yet. <br />
-
-        </h3>
+<body>
+    <div class="row" id="forumIndexContent">
+        @if (Model.Listings.Any())
+        {
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    @foreach (var listing in Model.Listings)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                                    @listing.Title
+                                </a>
+                            </td>
+                            <td>
+                                @listing.Author
+                            </td>
+                            <td>
+                                @listing.PostDate
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="noPosts" style="text-align: center;">
+                <p style="display: inline-block;">
+                    <br /> It looks like there are no @Model.Thread.Name listings yet. <br />
+                    Why not <a asp-controller="Listing" asp-action="Create" asp-route-id="@Model.Thread.Id"><span>Create One?</span></a>
+                </p>
+            </div>
+        }
     </div>
-}
-</div>
+</body>

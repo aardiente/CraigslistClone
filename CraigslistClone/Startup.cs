@@ -44,6 +44,7 @@ namespace CraigslistClone
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IThread, ThreadService>();
+            services.AddScoped<IListing, ListingService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -68,13 +69,19 @@ namespace CraigslistClone
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
-            app.UseMvc(routes =>
+            /*
+            using (var scope = app.ApplicationServices.GetRequiredService<DbContextOptions>())
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+                var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            }
+            */
+            
+                app.UseMvc(routes =>
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
+                });
         }
     }
 }

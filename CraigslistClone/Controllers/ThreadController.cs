@@ -11,17 +11,26 @@ namespace CraigslistClone.Controllers
 {
     public class ThreadController : Controller
     {
-        private readonly IThread _ThreadService;
-        private readonly IListing _ListingService;
-    
+        /********************************************************************************/
+        // Private handles
 
+        private readonly IThread _ThreadService;
+
+        /********************************************************************************/
+        // Constructor
+        
         public ThreadController( IThread threadService ) // May need to move service into seperate layer
         {
             _ThreadService = threadService;
         }
+
+        /********************************************************************************/
+        // Controller functionality
+
+        // Index page for all categories
         public IActionResult Index()
         {
-            var Threads = _ThreadService.GetAll() // IEnumberable<Thread> // Get all Threads from db
+            var Threads = _ThreadService.GetAll().OrderBy(s => s.Title) // IEnumberable<Thread> // Get all Threads from db
                 .Select( threads => new ThreadListingModel 
                 { 
                     Id = threads.Id, 
@@ -37,6 +46,7 @@ namespace CraigslistClone.Controllers
             return View(model);
         }
 
+        // Displays Listings of a given category
         public IActionResult Topic(int id)
         {
             var thread = _ThreadService.GetByID(id); // Computers has an id of 3
@@ -45,7 +55,7 @@ namespace CraigslistClone.Controllers
             var postListings = listings.Select(listing => new ListingPostModel
             {
                 Id = listing.Id,
-                AuthorID = listing.User.User_ID,
+                //AuthorID = listing.User.Id,
                 Title = listing.Title,
                 PostDate = listing.Created,
                 ExpireDate = listing.Expires,
@@ -65,7 +75,7 @@ namespace CraigslistClone.Controllers
         {
             var thread = listing.hostThread;
 
-            return BuildThreadListing(listing);
+            return BuildThreadListing(thread);
         }
         private ThreadListingModel BuildThreadListing(Thread t)
         {

@@ -1,4 +1,5 @@
 ﻿using CraigslistClone.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,10 @@ namespace CraigslistClone.Models.Services
 
         Listing IListing.GetByID(int id)
         {
-            throw new NotImplementedException();
+            return _context.Listings.Where( listing => listing.Id == id )
+                .Include( listing => listing.User )
+                .Include( listing=> listing.hostThread )
+                .First();
         }
 
         IEnumerable<Listing> IListing.GetAll()
