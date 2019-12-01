@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CraigslistClone.Data.Migrations
+namespace CraigslistClone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191021130046_Listings")]
-    partial class Listings
+    [Migration("20191201080753_testinguser")]
+    partial class testinguser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,8 @@ namespace CraigslistClone.Data.Migrations
                     b.Property<string>("Title");
 
                     b.Property<string>("UserId");
+
+                    b.Property<string>("UsersID");
 
                     b.Property<int?>("hostThreadId");
 
@@ -239,9 +241,11 @@ namespace CraigslistClone.Data.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<int?>("ThreadId");
+                    b.Property<bool>("IsActive");
 
-                    b.HasIndex("ThreadId");
+                    b.Property<DateTime>("MemberSince");
+
+                    b.Property<string>("ProfileImageUrl");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -253,7 +257,7 @@ namespace CraigslistClone.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.HasOne("CraigslistClone.Models.Thread", "hostThread")
-                        .WithMany()
+                        .WithMany("Listings")
                         .HasForeignKey("hostThreadId");
                 });
 
@@ -300,13 +304,6 @@ namespace CraigslistClone.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CraigslistClone.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("CraigslistClone.Models.Thread")
-                        .WithMany("Listings")
-                        .HasForeignKey("ThreadId");
                 });
 #pragma warning restore 612, 618
         }

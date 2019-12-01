@@ -55,7 +55,7 @@ namespace CraigslistClone.Controllers
             var postListings = listings.Select(listing => new ListingPostModel
             {
                 Id = listing.Id,
-                //AuthorID = listing.User.Id,
+                //AuthorID = listing.User.Id, // as it stands null
                 Title = listing.Title,
                 PostDate = listing.Created,
                 ExpireDate = listing.Expires,
@@ -83,6 +83,7 @@ namespace CraigslistClone.Controllers
             {
                 Id = t.Id,
                 Name = t.Title,
+                
                 Description = t.Description
             };
         }

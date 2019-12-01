@@ -4,14 +4,16 @@ using CraigslistClone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CraigslistClone.Data.Migrations
+namespace CraigslistClone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191130102550_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,10 +244,6 @@ namespace CraigslistClone.Data.Migrations
                     b.Property<DateTime>("MemberSince");
 
                     b.Property<string>("ProfileImageUrl");
-
-                    b.Property<int>("User_ID");
-
-                    b.Property<string>("Username");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });

@@ -10,5 +10,9 @@ namespace CraigslistClone.Models.Listing_Model
         public string ThreadName { get; set; }
         public int ThreadID { get; set; }
         public string AuthorName { get; set; }
+
+        public string Title { get; set; }
+        public string Content { get; set; }
+
     }
 }

@@ -10,5 +10,5 @@ insert into Threads ( Title, Description, Created ) values ( 'Jobs', 'For all of
 
 -- Create a user or this insert will not work
 insert into Listings ( Title, Content, Created, Expires, UserId, hostThreadId )
-values ( 'Gaming PC', 'Single core processor + gtx 560 + 5 ram', GetDate(), GetDate(), 'cae3c938-9a76-4695-bc72-aa5770883ad9', 1 )
+values ( 'Gaming PC', 'Single core processor + gtx 560 + 5 ram', GetDate(), GetDate(), '59833c68-2b89-47ca-96b8-4b1eb7fae4d5', 1 )
 

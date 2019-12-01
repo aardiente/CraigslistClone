@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CraigslistClone.Data.Migrations
+namespace CraigslistClone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191021130014_ApplicationUsers")]
-    partial class ApplicationUsers
+    [Migration("20191201144421_AlmostWorkingUsers")]
+    partial class AlmostWorkingUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,8 @@ namespace CraigslistClone.Data.Migrations
                     b.Property<string>("Title");
 
                     b.Property<string>("UserId");
+
+                    b.Property<string>("UsersID");
 
                     b.Property<int?>("hostThreadId");
 
@@ -119,9 +121,6 @@ namespace CraigslistClone.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -161,8 +160,6 @@ namespace CraigslistClone.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -235,25 +232,14 @@ namespace CraigslistClone.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CraigslistClone.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<int?>("ThreadId");
-
-                    b.HasIndex("ThreadId");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-                });
-
             modelBuilder.Entity("CraigslistClone.Models.Listing", b =>
                 {
-                    b.HasOne("CraigslistClone.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.HasOne("CraigslistClone.Models.Thread", "hostThread")
-                        .WithMany()
+                        .WithMany("Listings")
                         .HasForeignKey("hostThreadId");
                 });
 
@@ -300,13 +286,6 @@ namespace CraigslistClone.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CraigslistClone.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("CraigslistClone.Models.Thread")
-                        .WithMany("Listings")
-                        .HasForeignKey("ThreadId");
                 });
 #pragma warning restore 612, 618
         }

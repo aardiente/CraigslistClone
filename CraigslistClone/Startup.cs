@@ -14,6 +14,7 @@ using CraigslistClone.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CraigslistClone.Models.Services;
+using CraigslistClone.Models;
 
 namespace CraigslistClone
 {
@@ -38,10 +39,16 @@ namespace CraigslistClone
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"))); 
+                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            /*services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddDefaultTokenProviders();*/
 
             services.AddScoped<IThread, ThreadService>();
             services.AddScoped<IListing, ListingService>();

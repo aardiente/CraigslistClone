@@ -15,6 +15,7 @@ namespace CraigslistClone.Models.Services
         Task Delete(int id);
         Task EditListingContent(int id, string newContent);
 
+        Thread GetHostThread(int id);
         IEnumerable<Listing> GetListingsByThread(int id);
     }
 }

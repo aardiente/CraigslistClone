@@ -20,7 +20,7 @@ namespace CraigslistClone.Models.Services
         {
             return _context.Listings.Where( listing => listing.Id == id )
                 .Include( listing => listing.User )
-                .Include( listing=> listing.hostThread )
+                .Include( listing => listing.hostThread )
                 .First();
         }
 
@@ -34,9 +34,10 @@ namespace CraigslistClone.Models.Services
             throw new NotImplementedException();
         }
 
-        Task IListing.Add(Listing listing)
+        async Task  IListing.Add(Listing listing)
         {
-            throw new NotImplementedException();
+            _context.Add(listing);
+            await _context.SaveChangesAsync();
         }
 
         Task IListing.Delete(int id)
@@ -52,6 +53,12 @@ namespace CraigslistClone.Models.Services
         public IEnumerable<Listing> GetListingsByThread(int id)
         {
             return _context.Threads.Where(thread => thread.Id == id).FirstOrDefault().Listings;
+        }
+        public Thread GetHostThread(int id)
+        {
+            var t = _context.Threads.Where(thread => thread.Id == id).FirstOrDefault();
+            return t;
+
         }
     }
 }

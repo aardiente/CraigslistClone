@@ -19,10 +19,13 @@ namespace CraigslistClone.Models.Services
 
         Thread IThread.GetByID(int ID)
         {
-            var thread = _context.Threads.Where(t => t.Id == ID)
+            var thread = _context.Threads
+                .Where(t => t.Id == ID)
                 .Include(t => t.Listings)
-                    //.ThenInclude(l => l.User.User_ID) // This may be incorrect we want listings
-                    .FirstOrDefault(); 
+                //.ThenInclude(t => t.UsersID) // This may be incorrect we want listings // comment out if broken
+                    .FirstOrDefault();
+            var test = _context.Threads
+                .Where(t => t.Id == ID);
 
             return thread;
         }

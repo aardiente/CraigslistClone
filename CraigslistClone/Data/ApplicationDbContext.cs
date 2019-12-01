@@ -5,6 +5,7 @@ using CraigslistClone.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CraigslistClone.Data.Seeds;
+using Microsoft.AspNetCore.Identity;
 
 namespace CraigslistClone.Data
 {
@@ -16,7 +17,7 @@ namespace CraigslistClone.Data
         }
 
         // Add new entities here if needed
-        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<IdentityUser> ApplicationUsers { get; set; } // comment out if broken // Change to ApplicationUsers if broken
         public DbSet<Thread> Threads { get; set; }
         public DbSet<Listing> Listings { get; set; }
     }
