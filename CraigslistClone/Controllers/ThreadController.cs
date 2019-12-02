@@ -50,7 +50,7 @@ namespace CraigslistClone.Controllers
         public IActionResult Topic(int id)
         {
             var thread = _ThreadService.GetByID(id); // Computers has an id of 3
-            var listings = thread.Listings;// _ListingService.GetListingsByThread(id);  // returns a null value exception. its not getting thread.id
+            var listings = thread.Listings;
 
             var postListings = listings.Select(listing => new ListingPostModel
             {

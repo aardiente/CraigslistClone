@@ -1,0 +1,30 @@
+﻿@model CraigslistClone.Models.Listing_Model.UserListingsModel
+<h1>
+    All listings for @Model.CurrentUser.UserName
+</h1>
+
+    <body>
+        <table class="table table-hover" id="threadIndexTable">
+            <tbody>
+                @foreach (var listing in Model.UserListings)
+                {
+                    <tr>
+                        <td>
+                             @listing.Title 
+                        </td>
+                        <td>
+                            @listing.Created
+                        </td>
+                        <td>
+                            @listing.Expires
+                        </td>
+                        <td>
+                            <a asp-controller="Listing" asp-action="Edit" asp-route-id="@listing.Id">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>

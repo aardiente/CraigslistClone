@@ -1,0 +1,22 @@
+﻿@model CraigslistClone.Models.Listing_Model.ListingIndexModel
+
+<h1> Edit Post | @Model.Title </h1>
+
+<form asp-action="EditListing" method="post" id="editListingForm">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <textarea asp-for="Title" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ListingContent"></label>
+        <textarea asp-for="ListingContent" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" id="submitListingBtn" class="btn btn-submitPost">
+        Save Changes
+    </button>
+
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="threadId" type="hidden" />
+</form>

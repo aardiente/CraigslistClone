@@ -26,7 +26,14 @@ namespace CraigslistClone.Models.Services
 
         IEnumerable<Listing> IListing.GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Listings
+                .Include(listing => listing.User)
+                .Include(listing => listing.hostThread);
+        }
+        IEnumerable<Listing> IListing.GetListingsByUser( string userId )
+        {
+            var userListings = _context.Listings.Where( listing => listing.User.Id == userId);
+            return userListings;
         }
 
         IEnumerable<Listing> IListing.GetFilteredPost(string searchQuery)
@@ -45,9 +52,10 @@ namespace CraigslistClone.Models.Services
             throw new NotImplementedException();
         }
 
-        Task IListing.EditListingContent(int id, string newContent)
+        async Task IListing.EditListing(Listing listing)
         {
-            throw new NotImplementedException();
+            _context.Update(listing);
+            await _context.SaveChangesAsync();
         }
 
         public IEnumerable<Listing> GetListingsByThread(int id)

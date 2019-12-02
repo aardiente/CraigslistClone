@@ -13,6 +13,7 @@ namespace CraigslistClone.Models.Services
         IEnumerable<Thread> GetAll();
         IEnumerable<IdentityUser> GetApplicationUsers();
 
+        Thread GetByListing(int id, string userId);
         Task Create(Thread t);
         Task Delete(Thread t);
     }

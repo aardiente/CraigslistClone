@@ -15,8 +15,7 @@ namespace CraigslistClone.Models
         public DateTime Expires { get; set; }
 
         public string UsersID { get; set; }
-        //public ApplicationUser User { get; set; }
-        public IdentityUser User { get; set; }
+        public IdentityUser User { get; set; } // Was previously ApplicationUser User
         public virtual Thread hostThread { get; set; }
     }
 }
