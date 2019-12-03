@@ -47,6 +47,12 @@ namespace CraigslistClone.Models.Services
                 results.AddRange( tListings.ToList() );
             }
 
+            if(!results.Any())
+            {
+                var matchingThreads = _context.Threads.Where(t => t.Title.ToUpper().Contains(searchQuery.ToUpper())).ToList();
+                results = matchingThreads.First().Listings.ToList();
+            }
+
             return results;
         }
 

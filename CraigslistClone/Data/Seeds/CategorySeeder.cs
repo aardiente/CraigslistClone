@@ -87,7 +87,7 @@ namespace CraigslistClone.Data.Seeds
                                     User = user
                     },
                     new Listing
-                    {               Title = "Manchester United (2010) Jersy ",
+                    {               Title = "Manchester United (2010) Jersey ",
                                     Content = "Barely worn.",
                                     Created = DateTime.Today.AddDays(-5),
                                     Expires = DateTime.Today.AddDays(2),

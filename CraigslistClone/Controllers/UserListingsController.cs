@@ -39,8 +39,6 @@ namespace CraigslistClone.Controllers
                 CurrentUser = user
             };
 
-            ///model.UserListings.OrderBy(l => l.Created);
-
             return View(model);
         }
     }

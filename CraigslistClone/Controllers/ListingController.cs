@@ -142,7 +142,7 @@ namespace CraigslistClone.Controllers
         [HttpPost]
         public IActionResult SearchResults(string searchQuery)
         {
-            var r =_listingService.GetFilteredPost(searchQuery);
+            var r = _listingService.GetFilteredPost(searchQuery);
 
             var result = new SearchQueryModel
             {

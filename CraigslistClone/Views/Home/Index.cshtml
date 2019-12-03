@@ -18,7 +18,7 @@
             <tbody>
                 @foreach (var listing in Model.recentListings)
                 {
-                    <tr>
+                    <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id } ))'">
                         <td>
                             <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
                                 @listing.Title

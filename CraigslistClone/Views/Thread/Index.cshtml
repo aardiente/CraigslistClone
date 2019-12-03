@@ -12,7 +12,7 @@
         <tbody>
             @foreach (var thread in Model.ThreadList)
             {
-                <tr>
+                <tr onclick="location.href = '@(Url.Action("Topic", "Thread", new { Id = thread.Id } ))'">
                     <td>
                         <a asp-controller="Thread" asp-action="Topic" asp-route-id="@thread.Id"> @thread.Name </a>
                     </td>
