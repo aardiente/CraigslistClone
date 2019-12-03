@@ -1,0 +1,27 @@
+﻿@model CraigslistClone.Models.Listing_Model.SearchQueryModel
+<h1>
+    Results for @Model.query
+</h1>
+
+<body>
+    <table class="table table-hover" id="threadIndexTable">
+        <tbody>
+            @foreach (var listing in Model.results)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                            @listing.Title
+                        </a>
+                    </td>
+                    <td>
+                        @listing.Created
+                    </td>
+                    <td>
+                        @listing.Expires
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

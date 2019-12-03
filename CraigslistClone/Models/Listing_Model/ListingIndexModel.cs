@@ -14,5 +14,6 @@ namespace CraigslistClone.Models.Listing_Model
         public DateTime Created { get; set; }
         public DateTime Expires { get; set; }
         public string ListingContent { get; set; }
+        public int threadId { get; set; }
     }
 }

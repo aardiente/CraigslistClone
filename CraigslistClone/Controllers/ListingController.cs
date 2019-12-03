@@ -43,7 +43,8 @@ namespace CraigslistClone.Controllers
                 AuthorName = listing.User.UserName, //, //Hard coding value// 
                 Created = listing.Created,
                 Expires = listing.Expires,
-                ListingContent = listing.Content
+                ListingContent = listing.Content,
+                threadId = id
             };
 
             return View(model);
@@ -59,7 +60,6 @@ namespace CraigslistClone.Controllers
             {
                 ThreadName = thread.Title,
                 ThreadID = thread.Id,
-                //AuthorId = User.FindFirst(ClaimTypes.NameIdentifier),
                 AuthorName = User.Identity.Name // Gets the current logged in user
             };
             return View(model);
@@ -90,6 +90,64 @@ namespace CraigslistClone.Controllers
                 User = user,
                 hostThread = thread
             };
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var listing = _listingService.GetByID(id);
+
+            var model = new ListingIndexModel
+            {
+                Id = listing.Id,
+                Title = listing.Title,
+                AuthorId = listing.User.Id,//"59833c68 - 2b89 - 47ca - 96b8 - 4b1eb7fae4d5",//Hardcoding value //  Causing a crash. Null refrence exception
+                AuthorName = listing.User.UserName, //, //Hard coding value// 
+                Created = listing.Created,
+                Expires = listing.Expires,
+                ListingContent = listing.Content,
+                threadId = listing.hostThread.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditListing(ListingIndexModel model)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            var listing = UpdateListing(model, user);
+
+            await _listingService.EditListing(listing);
+
+            return RedirectToAction("Index", "Listing", new { @id = model.Id });
+        }
+
+        private Listing UpdateListing(ListingIndexModel model, IdentityUser user)
+        {
+            var thread = _threadService.GetByID(model.threadId);
+
+            var listing = thread.Listings.Where(l => l.Id == model.Id).FirstOrDefault();
+
+            listing.Title = model.Title;
+            listing.Content = model.ListingContent;
+            listing.Created = model.Created;
+
+            return listing;
+        }
+
+        [HttpPost]
+        public IActionResult SearchResults(string searchQuery)
+        {
+            var r =_listingService.GetFilteredPost(searchQuery);
+
+            var result = new SearchQueryModel
+            {
+                results = r,
+                query = searchQuery
+            };
+            return View( result );
         }
     }
 }

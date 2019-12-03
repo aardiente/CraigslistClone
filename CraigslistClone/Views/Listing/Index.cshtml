@@ -1,13 +1,20 @@
-﻿@model CraigslistClone.Models.Listing_Model.ListingIndexModel
+﻿
+@model CraigslistClone.Models.Listing_Model.ListingIndexModel
 
-<h1>@Model.Title</h1>
+    <h1>
+        @Model.Title
+        <br />
+    </h1>
 
-<div>
-    <h2> Author: @Model.AuthorName </h2>
-    <h3> Created: @Model.Created </h3>
+<div style="padding-left:5px; padding-top:5px; padding-bottom: 5px; border:inset 2px;">
+    @Model.ListingContent
 </div>
 
 <div>
-    @Model.ListingContent
+    <br />
+
+    <h5> Author: @Model.AuthorName </h5>
+    <h6> Created: @Model.Created </h6>
+    <br />
 </div>
 

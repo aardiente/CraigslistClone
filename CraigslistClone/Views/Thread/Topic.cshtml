@@ -1,4 +1,8 @@
-﻿@model CraigslistClone.Models.ThreadTopicModel
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model CraigslistClone.Models.ThreadTopicModel
 
 @{
     ViewData["Title"] = "Topic";
@@ -6,10 +10,10 @@
 
 <h1>Check out all of the @Model.Thread.Name listings!</h1>
 
-<span id="headingbtn"> 
-    @if (Model.Listings.Any())
+<span id="headingbtn">
+    @if (Model.Listings.Any() && SignInManager.IsSignedIn(User))
     {
-        <a asp-controller="Listing" asp-action="Create" asp-route-id=@Model.Thread.Id class="btn btn-newListing"> Create Post </a>
+        <a asp-controller="Listing" asp-action="Create" asp-route-id=@Model.Thread.Id class="btn btn-dark"> Create Post </a>
     }
 </span>
 
@@ -40,12 +44,24 @@
         }
         else
         {
-            <div class="noPosts" style="text-align: center;">
-                <p style="display: inline-block;">
-                    <br /> It looks like there are no @Model.Thread.Name listings yet. <br />
-                    Why not <a asp-controller="Listing" asp-action="Create" asp-route-id="@Model.Thread.Id"><span>Create One?</span></a>
-                </p>
-            </div>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="noPosts" style="text-align: center;">
+                    <p style="display: inline-block;">
+                        <br /> It looks like there are no @Model.Thread.Name listings yet. <br />
+                        Why not <a asp-controller="Listing" asp-action="Create" asp-route-id="@Model.Thread.Id"><span>Create One?</span></a>
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class"noPostsSignedOut" style="text-align: center;" >
+                    <p>
+                        There are no current listings for @Model.Thread.Name please sign in if you would like to create one!
+                    </p>
+                </div>
+            }
         }
     </div>
 </body>

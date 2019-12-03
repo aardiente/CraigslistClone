@@ -29,6 +29,12 @@ namespace CraigslistClone.Models.Services
 
             return thread;
         }
+        Thread IThread.GetByListing(int id, string userId)
+        {
+            var thread = _context.Threads;
+                //.Where( t => t.Listings. )
+            return null;
+        }
 
         IEnumerable<Thread> IThread.GetAll()
         {
