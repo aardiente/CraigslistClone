@@ -33,25 +33,26 @@ namespace CraigslistClone.Data.Seeds
         }
         public static void SeedExampleUser(ApplicationDbContext context)
         {
-            // Create basic user
-            var user = new ApplicationUser
-            {
-                UserName = "test@email.com",
-                NormalizedUserName = "test@email.com",
-                Email = "test@email.com",
-                EmailConfirmed = true,
-                LockoutEnabled = true,
-                SecurityStamp = Guid.NewGuid().ToString()
-            };
-
-            // Create password
-            var hasher = new PasswordHasher<ApplicationUser>();
-            var hashedPassword = hasher.HashPassword(user, "test");
-
-            user.PasswordHash = hashedPassword;
-
             if (!context.ApplicationUsers.Any())
             {
+                // Create basic user
+                var user = new ApplicationUser
+                {
+                    UserName = "test@email.com",
+                    NormalizedUserName = "test@email.com",
+                    Email = "test@email.com",
+                    NormalizedEmail = "test@email.com",
+                    EmailConfirmed = true,
+                    LockoutEnabled = true,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+
+                // Create password
+                var hasher = new PasswordHasher<ApplicationUser>();
+                var hashedPassword = hasher.HashPassword(user, "test");
+
+                user.PasswordHash = hashedPassword;
+
                 // Refactor this to categories
                 var Listings = new List<Listing>
                 {
@@ -61,6 +62,7 @@ namespace CraigslistClone.Data.Seeds
                                     Created = DateTime.Today,
                                     Expires = DateTime.Today.AddDays(7),
                                     hostThread = context.Threads.Where( t => t.Title == "Computers" ).FirstOrDefault(),
+                                    hostThreadID = context.Threads.Where( t => t.Title == "Computers" ).FirstOrDefault().Id,
                                     UsersID = user.Id,
                                     User = user
                     },
@@ -70,15 +72,57 @@ namespace CraigslistClone.Data.Seeds
                                     Created = DateTime.Today,
                                     Expires = DateTime.Today.AddDays(7),
                                     hostThread = context.Threads.Where( t => t.Title == "Computers" ).FirstOrDefault(),
+                                    hostThreadID = context.Threads.Where( t => t.Title == "Computers" ).FirstOrDefault().Id,
                                     UsersID = user.Id,
                                     User = user
                     },
                     new Listing
                     {               Title = "Looking for death metal band to play at church gathering",
                                     Content = "Be brutal... THIS ISN'T YOUR GRANDMA'S CHURCH GATHERING",
-                                    Created = DateTime.Today,
-                                    Expires = DateTime.Today.AddDays(7),
+                                    Created = DateTime.Today.AddDays(-5), 
+                                    Expires = DateTime.Today.AddDays(2),
                                     hostThread = context.Threads.Where( t => t.Title == "Gigs" ).FirstOrDefault(),
+                                    hostThreadID = context.Threads.Where( t => t.Title == "Gigs" ).FirstOrDefault().Id,
+                                    UsersID = user.Id,
+                                    User = user
+                    },
+                    new Listing
+                    {               Title = "Manchester United (2010) Jersy ",
+                                    Content = "Barely worn.",
+                                    Created = DateTime.Today.AddDays(-5),
+                                    Expires = DateTime.Today.AddDays(2),
+                                    hostThread = context.Threads.Where( t => t.Title == "Sports" ).FirstOrDefault(),
+                                    hostThreadID = context.Threads.Where( t => t.Title == "Sports" ).FirstOrDefault().Id,
+                                    UsersID = user.Id,
+                                    User = user
+                    },
+                    new Listing
+                    {               Title = "Guy who wanted to 1v1 me in CoD at walmart",
+                                    Content = "Rust, quickscopes only. COME AT ME. PSN: xXxNoscopeGoDxXx",
+                                    Created = DateTime.Today.AddDays(-5),
+                                    Expires = DateTime.Today.AddDays(2),
+                                    hostThread = context.Threads.Where( t => t.Title == "Lost Connections" ).FirstOrDefault(),
+                                    hostThreadID = context.Threads.Where( t => t.Title == "Lost Connections" ).FirstOrDefault().Id,
+                                    UsersID = user.Id,
+                                    User = user
+                    },
+                    new Listing
+                    {               Title = "Hotwheels collection",
+                                    Content = "My mom said I'm too old (32) for hotwheels and is making me sell them $5000 obo",
+                                    Created = DateTime.Today.AddDays(-5),
+                                    Expires = DateTime.Today.AddDays(2),
+                                    hostThread = context.Threads.Where( t => t.Title == "Toys" ).FirstOrDefault(),
+                                    hostThreadID = context.Threads.Where( t => t.Title == "Toys" ).FirstOrDefault().Id,
+                                    UsersID = user.Id,
+                                    User = user
+                    },
+                    new Listing
+                    {               Title = "Looking for clown/performer for childs birthday",
+                                    Content = "He really loves jonny karate",
+                                    Created = DateTime.Today.AddDays(-5),
+                                    Expires = DateTime.Today.AddDays(2),
+                                    hostThread = context.Threads.Where( t => t.Title == "Gigs" ).FirstOrDefault(),
+                                    hostThreadID = context.Threads.Where( t => t.Title == "Gigs" ).FirstOrDefault().Id,
                                     UsersID = user.Id,
                                     User = user
                     }

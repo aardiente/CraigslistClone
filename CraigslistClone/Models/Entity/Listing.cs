@@ -17,5 +17,6 @@ namespace CraigslistClone.Models
         public string UsersID { get; set; }
         public IdentityUser User { get; set; } // Was previously ApplicationUser User
         public virtual Thread hostThread { get; set; }
+        public int hostThreadID { get; set; }
     }
 }
