@@ -39,7 +39,6 @@ namespace CraigslistClone.Models.Services
         IEnumerable<Listing> IListing.GetFilteredPost(string searchQuery)
         {
             List<Listing> results = new List<Listing>();
-            //var threadsThatMatch = _context.Threads.Where( t => t.Listings.Any( l => l.Title.ToUpper().Contains( searchQuery.ToUpper() ))).AsEnumerable();
 
             foreach( Thread t in _context.Threads.Where( l => l.Listings != null ).Include( l => l.Listings).ToList() )
             {

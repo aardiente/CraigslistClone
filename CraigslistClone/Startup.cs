@@ -14,6 +14,7 @@ using CraigslistClone.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CraigslistClone.Models.Services;
+using CraigslistClone.Data.Seeds;
 using CraigslistClone.Models;
 
 namespace CraigslistClone
@@ -45,15 +46,18 @@ namespace CraigslistClone
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            /*services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddDefaultTokenProviders();*/
 
             services.AddScoped<IThread, ThreadService>();
             services.AddScoped<IListing, ListingService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Seeds data if its a new database
+            using (var context = services.BuildServiceProvider().GetService<ApplicationDbContext>())
+            {
+                CategorySeeder.SeedCategories(context);
+                CategorySeeder.SeedExampleUser(context);
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,13 +80,7 @@ namespace CraigslistClone
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            /*
-            using (var scope = app.ApplicationServices.GetRequiredService<DbContextOptions>())
-            {
-                var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            }
-            */
-            
+             
                 app.UseMvc(routes =>
                 {
                     routes.MapRoute(
