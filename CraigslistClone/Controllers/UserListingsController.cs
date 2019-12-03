@@ -33,8 +33,6 @@ namespace CraigslistClone.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             var UsersListings = _listingService.GetListingsByUser(userId);
 
-            var firstPost = UsersListings.First();
-
             var model = new UserListingsModel
             {
                 UserListings = UsersListings,

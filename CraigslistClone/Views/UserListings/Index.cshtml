@@ -10,7 +10,9 @@
                 {
                     <tr>
                         <td>
-                             @listing.Title 
+                            <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                                @listing.Title
+                            </a>
                         </td>
                         <td>
                             @listing.Created

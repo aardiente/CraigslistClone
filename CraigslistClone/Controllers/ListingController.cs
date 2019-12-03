@@ -137,5 +137,17 @@ namespace CraigslistClone.Controllers
             return listing;
         }
 
+        [HttpPost]
+        public IActionResult SearchResults(string searchQuery)
+        {
+            var r =_listingService.GetFilteredPost(searchQuery);
+
+            var result = new SearchQueryModel
+            {
+                results = r,
+                query = searchQuery
+            };
+            return View( result );
+        }
     }
 }
