@@ -6,13 +6,21 @@
         Results for @Model.query
     </h1>
 
+    <form method="post">
+        <input type="text" style="width: 400px" name="searchQuery" id="searchQuery" />
+
+        <input type="submit" value="Search" />
+        <br />
+    </form>
+    <br />
+
     <body>
         <table class="table table-hover" id="threadIndexTable">
 
             <tbody>
                 @foreach (var listing in Model.results)
                 {
-                    <tr>
+                    <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id } ))'">
                         <td>
                             <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
                                 @listing.Title
@@ -35,4 +43,11 @@ else
     <h1>
         There were no results for @Model.query
     </h1>
+
+    <form method="post">
+        <input type="text" style="width: 400px" name="searchQuery" id="searchQuery" />
+
+        <input type="submit" value="Search" />
+        <br />
+    </form>
 }

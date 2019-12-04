@@ -14,10 +14,12 @@
     @if (Model.Listings.Any() && SignInManager.IsSignedIn(User))
     {
         <a asp-controller="Listing" asp-action="Create" asp-route-id=@Model.Thread.Id class="btn btn-dark"> Create Post </a>
+        <br />
     }
 </span>
 
 <body>
+    <br />
     <div class="row" id="forumIndexContent">
         @if (Model.Listings.Any())
         {

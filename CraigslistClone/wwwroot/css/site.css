@@ -6,6 +6,12 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
+a.navbar{
+    background-color: aliceblue;
+}
+.li.navbar-nav{
+    text-decoration-color: white;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -17,6 +23,16 @@ html {
     font-size: 16px;
   }
 }
+
+
+/* Tables*/
+tr{
+    background-color: white;
+}
+    tr:hover {
+        background-color: whitesmoke;
+        cursor: pointer;
+    }
 
 .border-top {
   border-top: 1px solid #e5e5e5;
@@ -36,13 +52,25 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+.header{
+    background-color:mediumslateblue;
+}
+ul.navbar-nav {
+    text-decoration-color: white;
+}
+.navbar {
+    background-color:mintcream;
+    text-decoration-color: white;
+}
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
   /* Margin bottom by footer height */
+  background-color: aliceblue;
   margin-bottom: 60px;
 }
 .footer {
