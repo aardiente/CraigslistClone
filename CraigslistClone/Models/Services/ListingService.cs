@@ -32,20 +32,29 @@ namespace CraigslistClone.Models.Services
         }
         IEnumerable<Listing> IListing.GetListingsByUser( string userId )
         {
-            var userListings = _context.Listings.Where( listing => listing.User.Id == userId);
+            var userListings = _context.Listings
+                .Where(listing => listing.User.Id == userId);
+
             return userListings;
         }
 
         IEnumerable<Listing> IListing.GetFilteredPost(string searchQuery)
         {
             List<Listing> results = new List<Listing>();
-            //var threadsThatMatch = _context.Threads.Where( t => t.Listings.Any( l => l.Title.ToUpper().Contains( searchQuery.ToUpper() ))).AsEnumerable();
 
             foreach( Thread t in _context.Threads.Where( l => l.Listings != null ).Include( l => l.Listings).ToList() )
             {
                 var tListings = t.Listings.Where( l => l.Title.ToUpper().Contains(searchQuery.ToUpper()));
 
                 results.AddRange( tListings.ToList() );
+            }
+
+            if(!results.Any())
+            {
+                var matchingThreads = _context.Threads.Where(t => t.Title.ToUpper().Contains(searchQuery.ToUpper())).ToList();
+
+                if(matchingThreads.Any())
+                    results = matchingThreads.First().Listings.ToList();
             }
 
             return results;
@@ -74,9 +83,13 @@ namespace CraigslistClone.Models.Services
         }
         public Thread GetHostThread(int id)
         {
-            var t = _context.Threads.Where(thread => thread.Id == id).FirstOrDefault();
-            return t;
+            var t = _context.Threads.Where(thread => thread.Id == id)
+                .Include( thread => thread.Created )
+                .Include( thread => thread.Listings )
+                .Include( thread => thread.Title )
+                .FirstOrDefault();
 
+            return t;
         }
     }
 }

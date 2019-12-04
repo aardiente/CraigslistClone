@@ -35,7 +35,7 @@ namespace CraigslistClone.Controllers
 
             var model = new UserListingsModel
             {
-                UserListings = UsersListings,
+                UserListings = UsersListings.OrderByDescending(l => l.Created),
                 CurrentUser = user
             };
 

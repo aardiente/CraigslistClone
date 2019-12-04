@@ -39,8 +39,8 @@ namespace CraigslistClone.Controllers
             {
                 Id = listing.Id,
                 Title = listing.Title,
-                AuthorId = listing.User.Id,//"59833c68 - 2b89 - 47ca - 96b8 - 4b1eb7fae4d5",//Hardcoding value //  Causing a crash. Null refrence exception
-                AuthorName = listing.User.UserName, //, //Hard coding value// 
+                AuthorId = listing.User.Id,
+                AuthorName = listing.User.UserName,
                 Created = listing.Created,
                 Expires = listing.Expires,
                 ListingContent = listing.Content,
@@ -53,7 +53,6 @@ namespace CraigslistClone.Controllers
         // Create listing
         public IActionResult Create(int id)
         {
-            //var thread = _threadService.GetByID(id);
             var thread = _listingService.GetHostThread(id);
 
             var model = new NewListingModel
@@ -87,8 +86,11 @@ namespace CraigslistClone.Controllers
                 Title = model.Title,
                 Content = model.Content,
                 Created = DateTime.Now,
+                Expires = DateTime.Now.AddDays(7),
                 User = user,
-                hostThread = thread
+                UsersID = user.Id,
+                hostThread = thread,
+                hostThreadID = thread.Id
             };
         }
 
@@ -100,8 +102,8 @@ namespace CraigslistClone.Controllers
             {
                 Id = listing.Id,
                 Title = listing.Title,
-                AuthorId = listing.User.Id,//"59833c68 - 2b89 - 47ca - 96b8 - 4b1eb7fae4d5",//Hardcoding value //  Causing a crash. Null refrence exception
-                AuthorName = listing.User.UserName, //, //Hard coding value// 
+                AuthorId = listing.User.Id,
+                AuthorName = listing.User.UserName,
                 Created = listing.Created,
                 Expires = listing.Expires,
                 ListingContent = listing.Content,
@@ -140,7 +142,7 @@ namespace CraigslistClone.Controllers
         [HttpPost]
         public IActionResult SearchResults(string searchQuery)
         {
-            var r =_listingService.GetFilteredPost(searchQuery);
+            var r = _listingService.GetFilteredPost(searchQuery);
 
             var result = new SearchQueryModel
             {

@@ -1,27 +1,38 @@
 ﻿@model CraigslistClone.Models.Listing_Model.SearchQueryModel
-<h1>
-    Results for @Model.query
-</h1>
 
-<body>
-    <table class="table table-hover" id="threadIndexTable">
-        <tbody>
-            @foreach (var listing in Model.results)
-            {
-                <tr>
-                    <td>
-                        <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
-                            @listing.Title
-                        </a>
-                    </td>
-                    <td>
-                        @listing.Created
-                    </td>
-                    <td>
-                        @listing.Expires
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
+@if (Model.results.Any())
+{
+    <h1>
+        Results for @Model.query
+    </h1>
+
+    <body>
+        <table class="table table-hover" id="threadIndexTable">
+
+            <tbody>
+                @foreach (var listing in Model.results)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                                @listing.Title
+                            </a>
+                        </td>
+                        <td style="width:15%; text-align:center">
+                            Created: @listing.Created.ToString("d")
+                        </td>
+                        <td style="width:15%; text-align:center">
+                            Expires: @listing.Expires.ToString("d")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>
+}
+else
+{
+    <h1>
+        There were no results for @Model.query
+    </h1>
+}

@@ -5,18 +5,22 @@
 <form asp-action="EditListing" method="post" id="editListingForm">
     <div class="form-group">
         <label asp-for="Title"></label>
-        <textarea asp-for="Title" class="form-control"></textarea>
+        <textarea rows="1" asp-for="Title" class="form-control"></textarea>
     </div>
 
     <div class="form-group">
         <label asp-for="ListingContent"></label>
-        <textarea asp-for="ListingContent" class="form-control"></textarea>
+        <textarea rows="20" asp-for="ListingContent" class="form-control"></textarea>
     </div>
 
-    <button type="submit" id="submitListingBtn" class="btn btn-submitPost">
+    <button type="submit" id="submitListingBtn" class="btn btn-submitPost btn-dark">
         Save Changes
     </button>
 
     <input asp-for="Id" type="hidden" />
     <input asp-for="threadId" type="hidden" />
+    <input asp-for="Created" type="hidden" />
+    <input asp-for="Expires" type="hidden" />
+    <input asp-for="AuthorId" type="hidden" />
+    <input asp-for="ListingContent" type="hidden" />
 </form>

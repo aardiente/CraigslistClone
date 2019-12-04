@@ -34,11 +34,10 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-
                         <!--<li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>-->
+                                            <!--<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>-->
 
@@ -46,7 +45,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Thread" asp-action="Index">Explore Listings</a>
                         </li>
 
-                        @if( SignInManager.IsSignedIn(User) )
+                        @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserListings" asp-action="Index">My Listings</a>

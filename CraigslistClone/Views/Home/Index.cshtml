@@ -1,9 +1,40 @@
-﻿@{
+﻿@model CraigslistClone.Models.Listing_Model.RecentListingModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <br />
+
+    <h2>Recent posts</h2>
+</div>
+
+<div class="text-left">
+    @if (Model.recentListings.Any())
+    {
+        <table class="table table-bordered table-hover">
+            <tbody>
+                @foreach (var listing in Model.recentListings)
+                {
+                    <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id } ))'">
+                        <td>
+                            <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                                @listing.Title
+                            </a>
+                        </td>
+                        <td style="width:15%; text-align:center">
+                            <a asp-controller="Thread" asp-action="Topic" asp-route-id="@listing.hostThreadID">
+                                @Model.threads.Where(t => t.Id == listing.hostThreadID).First().Title
+                            </a>
+                        </td>
+                        <td style="width:10%; text-align:center">
+                            @listing.Created.Date.ToString("d")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
