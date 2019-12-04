@@ -2,13 +2,17 @@
 
 @using (Html.BeginForm("SearchResults", "Listing", FormMethod.Post))
 {
-    <input type="text" name="searchQuery" id="searchQuery" />
+    <form>
+        <input type="text" style="width: 400px" name="searchQuery" id="searchQuery" />
 
-    <input type="submit" value="Search" />
+        <input type="submit" value="Search" />
+        <br />
+    </form>
 }
 
 <body>
     <table class="table table-hover" id="threadIndexTable">
+        <br />
         <tbody>
             @foreach (var thread in Model.ThreadList)
             {
