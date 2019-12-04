@@ -42,21 +42,23 @@ namespace CraigslistClone.Models.Services
         {
             List<Listing> results = new List<Listing>();
 
-            foreach( Thread t in _context.Threads.Where( l => l.Listings != null ).Include( l => l.Listings).ToList() )
+            if (!string.IsNullOrEmpty(searchQuery))
             {
-                var tListings = t.Listings.Where( l => l.Title.ToUpper().Contains(searchQuery.ToUpper()));
+                foreach (Thread t in _context.Threads.Where(l => l.Listings != null).Include(l => l.Listings).ToList())
+                {
+                    var tListings = t.Listings.Where(l => l.Title.ToUpper().Contains(searchQuery.ToUpper()));
 
-                results.AddRange( tListings.ToList() );
+                    results.AddRange(tListings.ToList());
+                }
+
+                if (!results.Any())
+                {
+                    var matchingThreads = _context.Threads.Where(t => t.Title.ToUpper().Contains(searchQuery.ToUpper())).ToList();
+
+                    if (matchingThreads.Any())
+                        results = matchingThreads.First().Listings.ToList();
+                }
             }
-
-            if(!results.Any())
-            {
-                var matchingThreads = _context.Threads.Where(t => t.Title.ToUpper().Contains(searchQuery.ToUpper())).ToList();
-
-                if(matchingThreads.Any())
-                    results = matchingThreads.First().Listings.ToList();
-            }
-
             return results;
         }
 
@@ -84,9 +86,6 @@ namespace CraigslistClone.Models.Services
         public Thread GetHostThread(int id)
         {
             var t = _context.Threads.Where(thread => thread.Id == id)
-                .Include( thread => thread.Created )
-                .Include( thread => thread.Listings )
-                .Include( thread => thread.Title )
                 .FirstOrDefault();
 
             return t;
