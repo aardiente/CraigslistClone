@@ -32,7 +32,9 @@ namespace CraigslistClone.Models.Services
         }
         IEnumerable<Listing> IListing.GetListingsByUser( string userId )
         {
-            var userListings = _context.Listings.Where( listing => listing.User.Id == userId);
+            var userListings = _context.Listings
+                .Where(listing => listing.User.Id == userId);
+
             return userListings;
         }
 
@@ -50,7 +52,9 @@ namespace CraigslistClone.Models.Services
             if(!results.Any())
             {
                 var matchingThreads = _context.Threads.Where(t => t.Title.ToUpper().Contains(searchQuery.ToUpper())).ToList();
-                results = matchingThreads.First().Listings.ToList();
+
+                if(matchingThreads.Any())
+                    results = matchingThreads.First().Listings.ToList();
             }
 
             return results;
@@ -79,9 +83,13 @@ namespace CraigslistClone.Models.Services
         }
         public Thread GetHostThread(int id)
         {
-            var t = _context.Threads.Where(thread => thread.Id == id).FirstOrDefault();
-            return t;
+            var t = _context.Threads.Where(thread => thread.Id == id)
+                .Include( thread => thread.Created )
+                .Include( thread => thread.Listings )
+                .Include( thread => thread.Title )
+                .FirstOrDefault();
 
+            return t;
         }
     }
 }
