@@ -53,8 +53,10 @@ namespace CraigslistClone
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Seeds data if its a new database
+            
             using (var context = services.BuildServiceProvider().GetService<ApplicationDbContext>())
             {
+                context.Database.EnsureCreated();       // I can't believe how easy that solutions was -___-
                 CategorySeeder.SeedCategories(context);
                 CategorySeeder.SeedExampleUser(context);
             }
