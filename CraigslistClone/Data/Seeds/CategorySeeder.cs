@@ -125,16 +125,6 @@ namespace CraigslistClone.Data.Seeds
                                     hostThreadID = context.Threads.Where( t => t.Title == "Gigs" ).FirstOrDefault().Id,
                                     UsersID = user.Id,
                                     User = user
-                    },
-                    new Listing
-                    {               Title = "Max's Dragon Dildo Collection",
-                                    Content = "Used and slightly salty. I'm a very enthusiastic collector.",
-                                    Created = DateTime.Today,//.AddDays(-5),
-                                    Expires = DateTime.Today.AddDays(7),
-                                    hostThread = context.Threads.Where( t => t.Title == "Toys" ).FirstOrDefault(),
-                                    hostThreadID = context.Threads.Where( t => t.Title == "Toys" ).FirstOrDefault().Id,
-                                    UsersID = user.Id,
-                                    User = user
                     }
                 };
 
