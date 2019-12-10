@@ -79,7 +79,7 @@ namespace CraigslistClone.Data.Seeds
                     new Listing
                     {               Title = "Looking for death metal band to play at church gathering",
                                     Content = "Be brutal... THIS ISN'T YOUR GRANDMA'S CHURCH GATHERING",
-                                    Created = DateTime.Today.AddDays(-5), 
+                                    Created = DateTime.Today.AddDays(-5),
                                     Expires = DateTime.Today.AddDays(2),
                                     hostThread = context.Threads.Where( t => t.Title == "Gigs" ).FirstOrDefault(),
                                     hostThreadID = context.Threads.Where( t => t.Title == "Gigs" ).FirstOrDefault().Id,
