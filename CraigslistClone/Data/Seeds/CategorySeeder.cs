@@ -10,6 +10,10 @@ namespace CraigslistClone.Data.Seeds
     public static class CategorySeeder
     {
 
+        /// <summary>
+        ///     Creates a few threads to be seeded to the DB on the first run.
+        /// </summary>
+        /// <param name="context"> DbContext </param>
         public static void SeedCategories(ApplicationDbContext context)
         {
             if (!context.Threads.Any())
@@ -31,6 +35,11 @@ namespace CraigslistClone.Data.Seeds
                 context.SaveChanges();
             }
         }
+
+        /// <summary>
+        ///     Seeds a user and a few listings for that user into the Db on first run.
+        /// </summary>
+        /// <param name="context"> DbContext </param>
         public static void SeedExampleUser(ApplicationDbContext context)
         {
             if (!context.ApplicationUsers.Any())

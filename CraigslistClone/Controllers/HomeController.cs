@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CraigslistClone.Models;
 using CraigslistClone.Data;
@@ -12,11 +10,28 @@ namespace CraigslistClone.Controllers
 {
     public class HomeController : Controller
     {
+        /********************************************************************************/
+        // Private handles
         private readonly ApplicationDbContext _context;
+
+        /********************************************************************************/
+        // Constructors
+
+        /// <summary>
+        ///     Non default constructor for HomeController
+        /// </summary>
+        /// <param name="context"> DbContext </param>
         public HomeController( ApplicationDbContext context )
         {
             _context = context;
         }
+
+        /********************************************************************************/
+
+        /// <summary>
+        ///     Landing page atm.
+        /// </summary>
+        /// <returns> RecentListingModel: All listings created in the last day. </returns>
         public IActionResult Index()
         {
             var Threads = _context.Threads;
@@ -35,6 +50,8 @@ namespace CraigslistClone.Controllers
 
         }
 
+
+        // These are all bare bones and I don't feel like commenting them. 
         public IActionResult Privacy()
         {
             return View();
@@ -43,7 +60,7 @@ namespace CraigslistClone.Controllers
         {
             return View();
         }
-        public IActionResult UsersListingIndex()
+        public IActionResult UsersListingIndex() // Directs you to user listing index
         {
             return View();
         }

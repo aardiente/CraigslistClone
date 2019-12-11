@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CraigslistClone.Models.Listing_Model;
 using CraigslistClone.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 using CraigslistClone.Models;
 
 namespace CraigslistClone.Controllers
@@ -21,6 +19,13 @@ namespace CraigslistClone.Controllers
 
         /********************************************************************************/
         // Constructor
+
+        /// <summary>
+        ///     Non-Default controller for Listing Controller, it initializes services.
+        /// </summary>
+        /// <param name="listing"> Listing Service </param>
+        /// <param name="threadService"> Thread Service </param>
+        /// <param name="userManager"> UserManagement tool </param>
         public ListingController( IListing listing, IThread threadService, UserManager<IdentityUser> userManager )
         {
             _listingService = listing;
@@ -31,6 +36,11 @@ namespace CraigslistClone.Controllers
         /********************************************************************************/
 
         // Creates index page of listings
+        /// <summary>
+        ///     Takes a ThreadId and uses that to generate a view, by passing in a ListinIndexModel which is just a container class for a listing.
+        /// </summary>
+        /// <param name="id"> ThreadId </param>
+        /// <returns> ListingIndexModel: Container class for listing  </returns>
         public IActionResult Index(int id)
         {
             var listing = _listingService.GetByID(id);
@@ -50,7 +60,12 @@ namespace CraigslistClone.Controllers
             return View(model);
         }
 
-        // Create listing
+        
+        /// <summary>
+        ///     Takes a ThreadID and sends the user to a create a listing page
+        /// </summary>
+        /// <param name="id"> ThreadId </param>
+        /// <returns> NewListingModel: A container for some Thread information and the currently logged in user. </returns>
         public IActionResult Create(int id)
         {
             var thread = _listingService.GetHostThread(id);
@@ -64,6 +79,12 @@ namespace CraigslistClone.Controllers
             return View(model);
         }
 
+        /// <summary>
+        ///     An HTTP post method that takes in a newly created listing, created in the method above (Create)
+        ///     and pushes that new listing to the database.
+        /// </summary>
+        /// <param name="model"> The newly created listing made by the user. </param>
+        /// <returns> Redirects the user to the listing they just made. </returns>
         [HttpPost]
         public async Task<IActionResult> AddPost(NewListingModel model)
         {
@@ -77,6 +98,12 @@ namespace CraigslistClone.Controllers
             return RedirectToAction("Index", "Listing", new { @id = listing.Id });
         }
 
+        /// <summary>
+        ///     A helper method for AddPost which actually creates the listing.
+        /// </summary>
+        /// <param name="model"> listing being created </param>
+        /// <param name="user"> user that created it </param>
+        /// <returns></returns>
         private Listing BuildListing(NewListingModel model, IdentityUser user)
         {
             var thread = _threadService.GetByID(model.ThreadID);
@@ -94,6 +121,11 @@ namespace CraigslistClone.Controllers
             };
         }
 
+        /// <summary>
+        ///     Directs the user to the edit page for the listing they have clicked on.
+        /// </summary>
+        /// <param name="id"> ThreadId </param>
+        /// <returns> ListingIndexModel: the model being edited </returns>
         public IActionResult Edit(int id)
         {
             var listing = _listingService.GetByID(id);
@@ -113,6 +145,11 @@ namespace CraigslistClone.Controllers
             return View(model);
         }
 
+        /// <summary>
+        ///     HTTP Post method for a listing that has been edited by its creator
+        /// </summary>
+        /// <param name="model"> The listing that's been edited </param>
+        /// <returns> Redirects the user to the edited listing </returns>
         [HttpPost]
         public async Task<IActionResult> EditListing(ListingIndexModel model)
         {
@@ -126,7 +163,13 @@ namespace CraigslistClone.Controllers
             return RedirectToAction("Index", "Listing", new { @id = model.Id });
         }
 
-        private Listing UpdateListing(ListingIndexModel model, IdentityUser user)
+        /// <summary>
+        ///     A helper method for EditListing that actually changes the properties in the listing.
+        /// </summary>
+        /// <param name="model"> Listing being edited </param>
+        /// <param name="user"> The user edititing the listing </param>
+        /// <returns></returns>
+        private Listing UpdateListing(ListingIndexModel model, IdentityUser user) // user isn't used atm but will be in the future if I continue this project
         {
             var thread = _threadService.GetByID(model.threadId);
 
@@ -139,6 +182,12 @@ namespace CraigslistClone.Controllers
             return listing;
         }
 
+        /// <summary>
+        ///     HttpPost method that interacts with the ThreadController. 
+        ///     <NOTE> It is here because it didn't make sense to impliment a listing service in my thread controller for one method, and it's returning a view of just listings. </NOTE>
+        /// </summary>
+        /// <param name="searchQuery"> User's search query </param>
+        /// <returns> Returns a view with the search results. </returns>
         [HttpPost]
         public IActionResult SearchResults(string searchQuery)
         {

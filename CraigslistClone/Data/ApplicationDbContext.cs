@@ -17,7 +17,7 @@ namespace CraigslistClone.Data
         }
 
         // Add new entities here if needed
-        public DbSet<IdentityUser> ApplicationUsers { get; set; } // comment out if broken // Change to ApplicationUsers if broken
+        public DbSet<IdentityUser> ApplicationUsers { get; set; }
         public DbSet<Thread> Threads { get; set; }
         public DbSet<Listing> Listings { get; set; }
     }

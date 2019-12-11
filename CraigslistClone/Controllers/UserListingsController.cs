@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using CraigslistClone.Models.Listing_Model;
 using CraigslistClone.Models.Services;
@@ -20,6 +18,12 @@ namespace CraigslistClone.Controllers
 
         /********************************************************************************/
         // Constructor
+
+        /// <summary>
+        ///     Non default constructor for UserListings
+        /// </summary>
+        /// <param name="listing"> Listing service </param>
+        /// <param name="userManager"> User Manager </param>
         public UserListingsController(IListing listing, UserManager<IdentityUser> userManager)
         {
             _listingService = listing;
@@ -27,6 +31,11 @@ namespace CraigslistClone.Controllers
         }
 
         /********************************************************************************/
+
+        /// <summary>
+        ///     Creates a view index for the currently logged in user
+        /// </summary>
+        /// <returns> A view with all the listings that user has created </returns>
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using CraigslistClone.Models;
 using CraigslistClone.Models.Services;
 using CraigslistClone.Views.Listings;
@@ -19,7 +16,11 @@ namespace CraigslistClone.Controllers
         /********************************************************************************/
         // Constructor
         
-        public ThreadController( IThread threadService ) // May need to move service into seperate layer
+        /// <summary>
+        ///     Non default constructor for ThreadController
+        /// </summary>
+        /// <param name="threadService"> Thread Service Layer </param>
+        public ThreadController( IThread threadService ) 
         {
             _ThreadService = threadService;
         }
@@ -28,9 +29,13 @@ namespace CraigslistClone.Controllers
         // Controller functionality
 
         // Index page for all categories
+        /// <summary>
+        ///     Index page for all the Categories (threads)
+        /// </summary>
+        /// <returns> ThreadIndexModel: List of threads </returns>
         public IActionResult Index()
         {
-            var Threads = _ThreadService.GetAll().OrderBy(s => s.Title) // IEnumberable<Thread> // Get all Threads from db
+            var Threads = _ThreadService.GetAll().OrderBy(s => s.Title)
                 .Select( threads => new ThreadListingModel 
                 { 
                     Id = threads.Id, 
@@ -47,9 +52,14 @@ namespace CraigslistClone.Controllers
         }
 
         // Displays Listings of a given category
+        /// <summary>
+        ///     Takes you to the listings for a given category
+        /// </summary>
+        /// <param name="id"> ThreadId </param>
+        /// <returns> View with all the listings </returns>
         public IActionResult Topic(int id)
         {
-            var thread = _ThreadService.GetByID(id); // Computers has an id of 3
+            var thread = _ThreadService.GetByID(id);
             var listings = thread.Listings;
 
             var postListings = listings.Select(listing => new ListingPostModel
@@ -71,12 +81,23 @@ namespace CraigslistClone.Controllers
             return View(model);
         }
 
+        /// <summary>
+        ///     A helper function that builds a thread to be given to a post listing model
+        /// </summary>
+        /// <param name="listing"> listing the thread is being built for </param>
+        /// <returns></returns>
         private ThreadListingModel BuildThreadListing(Listing listing)
         {
             var thread = listing.hostThread;
 
             return BuildThreadListing(thread);
         }
+
+        /// <summary>
+        ///     Overloaded method for BuildThreadListing(Listing) to take a thread instead.
+        /// </summary>
+        /// <param name="t"> Thread being passed </param>
+        /// <returns> ThreadListingModel </returns>
         private ThreadListingModel BuildThreadListing(Thread t)
         {
             return new ThreadListingModel
