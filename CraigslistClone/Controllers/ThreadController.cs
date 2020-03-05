@@ -69,6 +69,7 @@ namespace CraigslistClone.Controllers
                 Title = listing.Title,
                 PostDate = listing.Created,
                 ExpireDate = listing.Expires,
+                image = listing.image,
                 Thread = BuildThreadListing(listing)
             });
 

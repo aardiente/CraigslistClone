@@ -28,10 +28,22 @@
                     @foreach (var listing in Model.Listings)
                     {
                         <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id } ))'">
-                            <td>
+                            <td width="200">
                                 <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
                                     @listing.Title
                                 </a>
+                            </td>
+                            <td>
+                                @{
+                                    string imgSrc = null;
+
+                                    if (listing.image != null)
+                                    {
+                                        var base64 = Convert.ToBase64String(listing.image);
+                                        imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                                    }
+                                }
+                                <img src="@imgSrc" height="5%" width="10%" />
                             </td>
                             <td style="width:20%; text-align:center">
                                 Listing Date: @listing.PostDate.ToString("d")

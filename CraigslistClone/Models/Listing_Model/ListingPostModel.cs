@@ -15,6 +15,8 @@ namespace CraigslistClone.Views.Listings
         public string AuthorID { get; set; }
         public DateTime PostDate { get; set; }
         public DateTime ExpireDate { get; set; }
+
+        public byte[] image { get; set; }
         public ThreadListingModel Thread { get; set; }
     }
 }
