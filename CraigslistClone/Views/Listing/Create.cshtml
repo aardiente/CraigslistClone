@@ -2,10 +2,10 @@
 
 <h1> New Post | @Model.ThreadName </h1>
 
-<form asp-action="AddPost" method="post" id="addListingForm">
+<form asp-action="AddPost" method="post" id="addListingForm" enctype="multipart/form-data"> <!-- enctype is very important. Why i was getting Null -->
     <div class="form-group">
         <label asp-for="Title"></label>
-        <textarea rows="1"  asp-for="Title" class="form-control"></textarea>
+        <textarea rows="1" asp-for="Title" class="form-control"></textarea>
     </div>
 
     <div class="form-group">
@@ -13,7 +13,14 @@
         <textarea rows="20" asp-for="Content" class="form-control"></textarea>
     </div>
 
-    <button type="submit" id="submitListingBtn" class="btn btn-submitPost; btn-dark";>
+    <div class="form-group">
+        <!--<label asp-for="image"></label>-->
+        <input type="file" asp-for="image" class="form-control" />
+        <!--<input type="submit" />-->
+
+    </div>
+
+    <button type="submit" id="submitListingBtn" class="btn btn-submitPost; btn-dark">
         Create Listing
     </button>
 

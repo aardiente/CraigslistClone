@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,7 @@ namespace CraigslistClone.Models
         public IdentityUser User { get; set; } // Was previously ApplicationUser User
         public virtual Thread hostThread { get; set; }
         public int hostThreadID { get; set; }
+
+        public Byte[] image { get; set; }
     }
 }

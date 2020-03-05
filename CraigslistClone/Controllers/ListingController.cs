@@ -6,6 +6,9 @@ using CraigslistClone.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CraigslistClone.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace CraigslistClone.Controllers
 {
@@ -54,12 +57,25 @@ namespace CraigslistClone.Controllers
                 Created = listing.Created,
                 Expires = listing.Expires,
                 ListingContent = listing.Content,
-                threadId = id
+                threadId = id,
+                image = listing.image//convertByteArrayToFormFile(listing.image)
             };
 
             return View(model);
         }
 
+        private IFormFile convertByteArrayToFormFile( byte[] file )
+        {
+            if (file != null)
+            {
+                using (var stream = new MemoryStream(file))
+                {
+                    IFormFile temp = new FormFile(stream, 0, file.Length, "name", "filename");
+                    return temp;
+                }
+            }
+            else return null;
+        }
         
         /// <summary>
         ///     Takes a ThreadID and sends the user to a create a listing page
@@ -117,8 +133,31 @@ namespace CraigslistClone.Controllers
                 User = user,
                 UsersID = user.Id,
                 hostThread = thread,
-                hostThreadID = thread.Id
+                hostThreadID = thread.Id,
+                image = ConvertIFormFileToByteArray(model.image)
             };
+        }
+        private byte[] ConvertIFormFileToByteArray( IFormFile image )
+        {
+            // Solution found at: https://stackoverflow.com/questions/42741170/how-to-save-images-to-database-using-asp-net-core
+            if ( image != null )
+            {
+                if (image.Length > 0)
+                {
+                    byte[] result = null;
+
+                    using ( var fileStream = image.OpenReadStream() )
+                    using ( var memoryStream = new MemoryStream() )
+                    {
+                        fileStream.CopyTo(memoryStream);
+                        result = memoryStream.ToArray();
+                    }
+
+                    return result; // Not being reached, image not being passed from view
+                }
+            }
+
+            return null; // Default to null of theres no file.
         }
 
         /// <summary>

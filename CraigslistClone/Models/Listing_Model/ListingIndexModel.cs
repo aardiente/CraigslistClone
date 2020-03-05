@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,5 +16,8 @@ namespace CraigslistClone.Models.Listing_Model
         public DateTime Expires { get; set; }
         public string ListingContent { get; set; }
         public int threadId { get; set; }
+
+        //public IFormFile image { get; set; }
+        public byte[] image { get; set; }
     }
 }

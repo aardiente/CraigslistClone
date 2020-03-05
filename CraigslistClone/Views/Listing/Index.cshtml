@@ -1,12 +1,25 @@
 ﻿
 @model CraigslistClone.Models.Listing_Model.ListingIndexModel
 
-    <h1>
-        @Model.Title
-        <br />
-    </h1>
+<h1>
+    @Model.Title
+    <br />
+</h1>
 
-<div style="padding-left:5px; padding-top:5px; padding-bottom: 5px; border:inset 2px;" >
+<h7>
+    @{
+        string imgSrc = null;
+
+        if (Model.image != null )
+        {
+            var base64 = Convert.ToBase64String(Model.image);
+            imgSrc = String.Format("data:image/png;base64,{0}", base64);
+        }
+    }
+    <img src="@imgSrc" height="50%" width="50%"/>
+</h7>
+
+<div style="padding-left:5px; padding-top:5px; padding-bottom: 5px; border:inset 2px;">
     <textarea readonly rows="10" cols="121" wrap="hard">@Model.ListingContent</textarea>
 </div>
 
