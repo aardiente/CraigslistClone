@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CraigslistClone.Models.Entity;
+using CraigslistClone.Models.Listing_Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,14 @@ namespace CraigslistClone.Models
         public virtual Thread hostThread { get; set; }
         public int hostThreadID { get; set; }
 
+        // New stuff
         public Byte[] image { get; set; }
+
+        //public ListingImages images{ get; set; }
+
+        public IEnumerable<ListingImage> images { get; set; }
+        public string Price { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

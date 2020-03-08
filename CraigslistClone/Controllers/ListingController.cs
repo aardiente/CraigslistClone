@@ -153,11 +153,11 @@ namespace CraigslistClone.Controllers
                         result = memoryStream.ToArray();
                     }
 
-                    return result; // Not being reached, image not being passed from view
+                    return result;
                 }
             }
 
-            return null; // Default to null of theres no file.
+            return null; // Default to null if theres no file.
         }
 
         /// <summary>

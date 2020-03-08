@@ -4,41 +4,22 @@ using CraigslistClone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CraigslistClone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200306044939_AddingImages")]
+    partial class AddingImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CraigslistClone.Models.Entity.ListingImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<byte[]>("Data");
-
-                    b.Property<int>("ListingId");
-
-                    b.Property<int>("ThreadId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListingId");
-
-                    b.ToTable("ListingImages");
-                });
 
             modelBuilder.Entity("CraigslistClone.Models.Listing", b =>
                 {
@@ -68,13 +49,28 @@ namespace CraigslistClone.Migrations
 
                     b.Property<byte[]>("image");
 
+                    b.Property<int?>("imagesId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.HasIndex("hostThreadID");
 
+                    b.HasIndex("imagesId");
+
                     b.ToTable("Listings");
+                });
+
+            modelBuilder.Entity("CraigslistClone.Models.Listing_Model.ListingImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ListingImages");
                 });
 
             modelBuilder.Entity("CraigslistClone.Models.Thread", b =>
@@ -259,14 +255,6 @@ namespace CraigslistClone.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CraigslistClone.Models.Entity.ListingImage", b =>
-                {
-                    b.HasOne("CraigslistClone.Models.Listing")
-                        .WithMany("images")
-                        .HasForeignKey("ListingId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("CraigslistClone.Models.Listing", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -277,6 +265,10 @@ namespace CraigslistClone.Migrations
                         .WithMany("Listings")
                         .HasForeignKey("hostThreadID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CraigslistClone.Models.Listing_Model.ListingImages", "images")
+                        .WithMany()
+                        .HasForeignKey("imagesId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

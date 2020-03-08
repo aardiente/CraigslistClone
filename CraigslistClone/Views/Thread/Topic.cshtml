@@ -4,6 +4,20 @@
 
 @model CraigslistClone.Models.ThreadTopicModel
 
+<style>
+    .zoom 
+    {
+      transition: transform .3s; /* Animation */
+      margin: 0 auto;
+    }
+
+    .zoom:hover 
+    {
+        transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        vertical-align: middle;
+    }
+</style>
+
 @{
     ViewData["Title"] = "Topic";
 }
@@ -43,7 +57,9 @@
                                         imgSrc = String.Format("data:image/png;base64,{0}", base64);
                                     }
                                 }
-                                <img src="@imgSrc" height="5%" width="10%" />
+                                <div class="zoom">
+                                    <img src="@imgSrc" height="100" width="200" />
+                                </div>
                             </td>
                             <td style="width:20%; text-align:center">
                                 Listing Date: @listing.PostDate.ToString("d")
