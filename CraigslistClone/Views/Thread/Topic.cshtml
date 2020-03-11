@@ -13,7 +13,7 @@
 
     .zoom:hover 
     {
-        transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        transform: scale(4); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
         vertical-align: middle;
     }
 </style>
@@ -49,24 +49,36 @@
                         </td>
 
                       @{
-                            string imgSrc = null;
-                            @foreach (var img in listing.Images)
-                            {
-                    <td>
-                        @{
-                            if (img != null)
-                            {
-                                var base64 = Convert.ToBase64String(listing.image);
-                                imgSrc = String.Format("data:image/png;base64,{0}", base64);
-                            }
+                        string[] imgArray = new string[listing.Images.Count()];
+                        int index = 0;
+                            
 
-                            <div class="zoom">
-                                <img src="@imgSrc" height="100" width="200" />
-                            </div>
+                        @foreach (var img in listing.Images)
+                        {
+                            <td>
+                            @{
+                                var t = Convert.ToBase64String(img.Data);
+                                imgArray[index] = String.Format("data:image/png;base64,{0}", t);
+
+
+                                <div class="zoom">
+                                    <img src="@imgArray[index]" height="100" width="200" />
+                                </div>
+
+                                index++;
+
+                            }
+                            </td>
+
                         }
-                    </td>
 
-                            }
+                                if(index < 3)
+                                {
+                                    for(int i = index; i < 3; i++ )
+                                    {
+                                        <td></td>
+                                    }
+                                }
                       }
 
                         <td style="width:20%; text-align:center">

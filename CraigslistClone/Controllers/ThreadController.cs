@@ -74,7 +74,7 @@ namespace CraigslistClone.Controllers
                 Thread = BuildThreadListing(listing)
             });
 
-            var t = postListings.First().Images; // Testing variable
+            //var t = postListings.First().Images; // Testing variable
 
             var model = new ThreadTopicModel
             {
