@@ -1,11 +1,13 @@
-﻿@model CraigslistClone.Models.Listing_Model.NewListingModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CraigslistClone.Models.Listing_Model.NewListingModel
 
 <h1> New Post | @Model.ThreadName </h1>
 
-<form asp-action="AddPost" method="post" id="addListingForm">
+<form asp-action="AddPost" method="post" id="addListingForm" enctype="multipart/form-data">
+    <!-- enctype is very important. Why i was getting Null -->
     <div class="form-group">
         <label asp-for="Title"></label>
-        <textarea rows="1"  asp-for="Title" class="form-control"></textarea>
+        <textarea rows="1" asp-for="Title" class="form-control"></textarea>
     </div>
 
     <div class="form-group">
@@ -13,9 +15,30 @@
         <textarea rows="20" asp-for="Content" class="form-control"></textarea>
     </div>
 
-    <button type="submit" id="submitListingBtn" class="btn btn-submitPost; btn-dark";>
+    @{bool disableButton = false; <!-- Will return to later, file validation -->
+
+    <div class="form-group">
+        <!--<label asp-for="image"></label>-->
+
+
+        <input type="file" asp-for="image" id="FileUpload" multiple class="form-control" accept="image/*" />
+
+        <script type="text/javascript">
+                var fname = document.getElementById("FileUpload").value;
+                var fDot = fname.lastIndexOf(".") + 1;
+                var ext = fname.substr(fDot, fname.length).toLowerCase();
+
+                if (ext == "jpg" || ext == "png" || ext == "jpeg")
+                    disableButton = false;
+                else
+                    disableButton = true;
+        </script>
+
+    </div>
+
+    <button type="submit" id="submitListingBtn" class="btn btn-submitPost; btn-dark" @Html.DisabledIf(disableButton)>
         Create Listing
     </button>
-
+        }
     <input asp-for="ThreadID" type="hidden" />
 </form>

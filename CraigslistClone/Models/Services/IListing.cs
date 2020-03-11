@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CraigslistClone.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,5 +19,7 @@ namespace CraigslistClone.Models.Services
         Thread GetHostThread(int id);
         IEnumerable<Listing> GetListingsByThread(int id);
         IEnumerable<Listing> GetListingsByUser(string userId);
+
+        IEnumerable<ListingImage> GetListingImages(int id);
     }
 }

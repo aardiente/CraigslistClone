@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CraigslistClone.Data;
+using CraigslistClone.Models.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -70,6 +71,16 @@ namespace CraigslistClone.Models.Services
             return _context.Threads.Include( Thread => Thread.Listings );
         }
 
+        IEnumerable<ListingImage> IThread.GetListingImages(int ListingId)
+        {
+            var userListings = _context.Listings
+                .Where(listing => listing.Id == ListingId)
+                .Include(listing => listing.images);
+
+            return userListings.First().images;
+        }
+
+
         /************************************************************************************************/
         // Unused for now, will be implimented if I work on this project in the future.
         IEnumerable<IdentityUser> IThread.GetApplicationUsers()
@@ -81,6 +92,8 @@ namespace CraigslistClone.Models.Services
         {
             throw new NotImplementedException();
         }
+
+
 
         Task IThread.Delete(Thread t)
         {

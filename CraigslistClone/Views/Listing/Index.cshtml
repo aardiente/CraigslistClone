@@ -1,12 +1,33 @@
 ﻿
 @model CraigslistClone.Models.Listing_Model.ListingIndexModel
 
-    <h1>
-        @Model.Title
-        <br />
-    </h1>
+<h1>
+    @Model.Title
+    <br />
+</h1>
 
-<div style="padding-left:5px; padding-top:5px; padding-bottom: 5px; border:inset 2px;" >
+<h7>
+    @{
+
+        string[] imgArray = new string[Model.Images.Count()];
+
+        int index = 0;
+
+        foreach (var image in Model.Images)
+        {
+            var t = Convert.ToBase64String(image.Data);
+            imgArray[index] = String.Format("data:image/png;base64,{0}", t);
+            
+
+            <img src="@imgArray[index]" height="50%" width="50%" />
+
+            index++;
+        }
+    }
+
+</h7>
+
+<div style="padding-left:5px; padding-top:5px; padding-bottom: 5px; border:inset 2px;">
     <textarea readonly rows="10" cols="121" wrap="hard">@Model.ListingContent</textarea>
 </div>
 
