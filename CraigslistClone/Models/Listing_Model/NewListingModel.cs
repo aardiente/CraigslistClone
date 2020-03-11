@@ -14,7 +14,8 @@ namespace CraigslistClone.Models.Listing_Model
 
         public string Title { get; set; }
         public string Content { get; set; }
-        public IFormFile image { get; set; }
+        public IFormFile[] image { get; set; }
+        //public 
 
     }
 }

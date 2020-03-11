@@ -1,4 +1,5 @@
 ﻿using CraigslistClone.Data;
+using CraigslistClone.Models.Entity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace CraigslistClone.Models.Services
         Thread GetByID(int ID);
         IEnumerable<Thread> GetAll();
         IEnumerable<IdentityUser> GetApplicationUsers();
+
+        IEnumerable<ListingImage> GetListingImages(int ListingId);
 
         Thread GetByListing(int id, string userId);
         Task Create(Thread t);

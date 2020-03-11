@@ -1,4 +1,5 @@
 ﻿using CraigslistClone.Data;
+using CraigslistClone.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -103,8 +104,16 @@ namespace CraigslistClone.Models.Services
         async Task IListing.Add(Listing listing)
         {
             _context.Add(listing);
+
+            foreach( ListingImage obj in listing.images )
+            {
+                obj.ListingId = listing.Id;
+                _context.Add(obj);
+            }
+
             await _context.SaveChangesAsync();
         }
+
 
         /************************************************************************************************/
         // Unused, will be implimented if i continue the project
@@ -147,6 +156,15 @@ namespace CraigslistClone.Models.Services
                 .FirstOrDefault();
 
             return t;
+        }
+
+        IEnumerable<ListingImage> IListing.GetListingImages( int ListingId )
+        {
+            var userListings = _context.Listings
+                .Where(listing => listing.Id == ListingId)
+                .Include(listing => listing.images);
+
+            return userListings.First().images;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CraigslistClone.Models.Entity;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,6 @@ namespace CraigslistClone.Models.Listing_Model
 
         //public IFormFile image { get; set; }
         public byte[] image { get; set; }
+        public IEnumerable<ListingImage> Images { get; set; }
     }
 }

@@ -70,8 +70,11 @@ namespace CraigslistClone.Controllers
                 PostDate = listing.Created,
                 ExpireDate = listing.Expires,
                 image = listing.image,
+                Images = _ThreadService.GetListingImages(listing.Id),
                 Thread = BuildThreadListing(listing)
             });
+
+            var t = postListings.First().Images; // Testing variable
 
             var model = new ThreadTopicModel
             {

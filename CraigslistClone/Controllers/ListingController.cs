@@ -9,6 +9,8 @@ using CraigslistClone.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Http.Internal;
+using CraigslistClone.Models.Entity;
+using System.Collections.Generic;
 
 namespace CraigslistClone.Controllers
 {
@@ -58,6 +60,7 @@ namespace CraigslistClone.Controllers
                 Expires = listing.Expires,
                 ListingContent = listing.Content,
                 threadId = id,
+                Images = _listingService.GetListingImages(listing.Id),
                 image = listing.image//convertByteArrayToFormFile(listing.image)
             };
 
@@ -134,8 +137,26 @@ namespace CraigslistClone.Controllers
                 UsersID = user.Id,
                 hostThread = thread,
                 hostThreadID = thread.Id,
-                image = ConvertIFormFileToByteArray(model.image)
+                images = ConvertListingImages(model.image, model.ThreadID, user.Id),
+                image = ConvertIFormFileToByteArray(model.image.First())
             };
+        }
+        
+        private List<ListingImage> ConvertListingImages( IFormFile[] files, int ThreadId, string UserId )
+        {
+            List<ListingImage> result = new List<ListingImage>();
+
+            foreach( IFormFile f in files )
+            {
+                result.Add(new ListingImage
+                {
+                    ThreadId = ThreadId,
+                    UserId = UserId,
+                    Data = ConvertIFormFileToByteArray(f)
+                }) ;
+            }
+
+            return result;
         }
         private byte[] ConvertIFormFileToByteArray( IFormFile image )
         {

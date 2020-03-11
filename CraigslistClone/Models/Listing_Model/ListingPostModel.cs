@@ -1,4 +1,5 @@
 ﻿using CraigslistClone.Models;
+using CraigslistClone.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace CraigslistClone.Views.Listings
 
         public byte[] image { get; set; }
         public ThreadListingModel Thread { get; set; }
+        public IEnumerable<ListingImage> Images { get; set; }
     }
 }

@@ -41,30 +41,38 @@
                 <tbody>
                     @foreach (var listing in Model.Listings)
                     {
-                        <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id } ))'">
-                            <td width="200">
-                                <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
-                                    @listing.Title
-                                </a>
-                            </td>
-                            <td>
-                                @{
-                                    string imgSrc = null;
+                    <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id }))'">
+                        <td width="200">
+                            <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                                @listing.Title
+                            </a>
+                        </td>
 
-                                    if (listing.image != null)
-                                    {
-                                        var base64 = Convert.ToBase64String(listing.image);
-                                        imgSrc = String.Format("data:image/png;base64,{0}", base64);
-                                    }
-                                }
-                                <div class="zoom">
-                                    <img src="@imgSrc" height="100" width="200" />
-                                </div>
-                            </td>
-                            <td style="width:20%; text-align:center">
-                                Listing Date: @listing.PostDate.ToString("d")
-                            </td>
-                        </tr>
+                      @{
+                            string imgSrc = null;
+                            @foreach (var img in listing.Images)
+                            {
+                    <td>
+                        @{
+                            if (img != null)
+                            {
+                                var base64 = Convert.ToBase64String(listing.image);
+                                imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                            }
+
+                            <div class="zoom">
+                                <img src="@imgSrc" height="100" width="200" />
+                            </div>
+                        }
+                    </td>
+
+                            }
+                      }
+
+                        <td style="width:20%; text-align:center">
+                            Listing Date: @listing.PostDate.ToString("d")
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
