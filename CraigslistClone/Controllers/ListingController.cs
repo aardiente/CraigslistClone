@@ -59,6 +59,9 @@ namespace CraigslistClone.Controllers
                 Created = listing.Created,
                 Expires = listing.Expires,
                 ListingContent = listing.Content,
+                Price = listing.Price,
+                Address = listing.Address,
+                PhoneNumber = listing.PhoneNumber,
                 threadId = id,
                 Images = _listingService.GetListingImages(listing.Id),
                 image = listing.image//convertByteArrayToFormFile(listing.image)
@@ -137,6 +140,9 @@ namespace CraigslistClone.Controllers
                 UsersID = user.Id,
                 hostThread = thread,
                 hostThreadID = thread.Id,
+                Price = model.Price,
+                Address = model.Address,
+                PhoneNumber = model.PhoneNumber,
                 images = ConvertListingImages(model.image, model.ThreadID, user.Id),
                 image = ConvertIFormFileToByteArray(model.image.First())
             };
@@ -198,6 +204,9 @@ namespace CraigslistClone.Controllers
                 AuthorName = listing.User.UserName,
                 Created = listing.Created,
                 Expires = listing.Expires,
+                Price = listing.Price,
+                PhoneNumber = listing.PhoneNumber,
+                Address = listing.Address,
                 ListingContent = listing.Content,
                 threadId = listing.hostThread.Id
             };
@@ -238,6 +247,9 @@ namespace CraigslistClone.Controllers
             listing.Title = model.Title;
             listing.Content = model.ListingContent;
             listing.Created = model.Created;
+            listing.Price = model.Price;
+            listing.PhoneNumber = model.PhoneNumber;
+            listing.Address = model.Address;
 
             return listing;
         }

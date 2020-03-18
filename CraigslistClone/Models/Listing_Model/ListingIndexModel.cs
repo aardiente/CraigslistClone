@@ -18,6 +18,11 @@ namespace CraigslistClone.Models.Listing_Model
         public string ListingContent { get; set; }
         public int threadId { get; set; }
 
+        public string Price { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+
+
         //public IFormFile image { get; set; }
         public byte[] image { get; set; }
         public IEnumerable<ListingImage> Images { get; set; }
