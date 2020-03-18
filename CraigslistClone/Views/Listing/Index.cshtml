@@ -74,13 +74,13 @@
                     if (index == 0)
                     {
                         <div class="carousel-item active">
-                            <img src="@imgArray[index]" />
+                            <img class="img-fluid" src="@imgArray[index]" />
                         </div>
                     }
                     else
                     {
                         <div class="carousel-item">
-                            <img src="@imgArray[index]" />
+                            <img class="img-fluid" src="@imgArray[index]" />
                         </div>
                     }
                     index++;
@@ -106,9 +106,10 @@
 <div class="container" id="ListingInfo">
     <h5>
         <br/>
-        Price: @Model.Price
+        Price: $@string.Format( "{0:#.00}", Convert.ToDecimal(Model.Price))
         <br />
         Phone Number: @Model.PhoneNumber
+        <br />
         Address: @Model.Address
     </h5>
 
