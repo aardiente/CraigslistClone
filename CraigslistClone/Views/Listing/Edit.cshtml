@@ -9,6 +9,21 @@
     </div>
 
     <div class="form-group">
+        <table cellspacing="10">
+            <tr>
+                <td><label asp-for="Price"></label></td>
+                <td><label asp-for="Address"></label></td>
+                <td><label asp-for="PhoneNumber"></label></td>
+            </tr>
+            <tr>
+                <td><input type="number" asp-for="Price" min="0" step="0.01" class="form-control"></td>
+                <td><textarea asp-for="Address" rows="1" class="form-control"></textarea></td>
+                <td><textarea asp-for="PhoneNumber" rows="1" class="form-control"></textarea></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-group">
         <label asp-for="ListingContent"></label>
         <textarea rows="20" asp-for="ListingContent" class="form-control"></textarea>
     </div>

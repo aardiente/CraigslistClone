@@ -3,11 +3,33 @@
 
 <h1> New Post | @Model.ThreadName </h1>
 
+<style>
+    .info{
+        display: inline-block;
+    }
+</style>
+
+
 <form asp-action="AddPost" method="post" id="addListingForm" enctype="multipart/form-data">
     <!-- enctype is very important. Why i was getting Null -->
     <div class="form-group">
         <label asp-for="Title"></label>
         <textarea rows="1" asp-for="Title" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <table cellspacing="10">
+            <tr>
+                <td><label asp-for="Price"></label></td>
+                <td><label asp-for="Address"></label></td>
+                <td><label asp-for="PhoneNumber"></label></td>
+            </tr>
+            <tr>
+                <td><input type="number" asp-for="Price" min="0" step="0.01" class="form-control"></td>
+                <td><textarea asp-for="PhoneNumber" rows="1" class="form-control"></textarea></td>
+                <td><textarea asp-for="Address" rows="1" class="form-control"></textarea></td>
+            </tr>
+        </table>
     </div>
 
     <div class="form-group">
@@ -17,28 +39,29 @@
 
     @{bool disableButton = false; <!-- Will return to later, file validation -->
 
-    <div class="form-group">
-        <!--<label asp-for="image"></label>-->
+        <div class="form-group">
+            <!--<label asp-for="image"></label>-->
 
 
-        <input type="file" asp-for="image" id="FileUpload" multiple class="form-control" accept="image/*" />
+            <input type="file" asp-for="image" id="FileUpload" multiple class="form-control" accept="image/*" />
 
-        <script type="text/javascript">
-                var fname = document.getElementById("FileUpload").value;
-                var fDot = fname.lastIndexOf(".") + 1;
-                var ext = fname.substr(fDot, fname.length).toLowerCase();
+            <!--<script type="text/javascript">
+                alert("I'm running the script");
+                    var fname = document.getElementById("FileUpload").value;
+                    var fDot = fname.lastIndexOf(".") + 1;
+                    var ext = fname.substr(fDot, fname.length).toLowerCase();
 
-                if (ext == "jpg" || ext == "png" || ext == "jpeg")
-                    disableButton = false;
-                else
-                    disableButton = true;
-        </script>
+                    if (ext == "jpg" || ext == "png" || ext == "jpeg")
+                        disableButton = false;
+                    else
+                        disableButton = true;
+            </script>-->
 
-    </div>
+        </div>
 
-    <button type="submit" id="submitListingBtn" class="btn btn-submitPost; btn-dark" @Html.DisabledIf(disableButton)>
-        Create Listing
-    </button>
-        }
+        <button type="submit" id="submitListingBtn" class="btn btn-submitPost; btn-dark" @Html.DisabledIf(disableButton)>
+            Create Listing
+        </button>
+    }
     <input asp-for="ThreadID" type="hidden" />
 </form>

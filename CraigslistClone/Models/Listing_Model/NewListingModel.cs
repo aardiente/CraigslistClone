@@ -14,6 +14,13 @@ namespace CraigslistClone.Models.Listing_Model
 
         public string Title { get; set; }
         public string Content { get; set; }
+
+        public string Price { get; set; }
+
+        public string Address { get; set; }
+
+        public string PhoneNumber { get; set; }
+
         public IFormFile[] image { get; set; }
         //public 
 
