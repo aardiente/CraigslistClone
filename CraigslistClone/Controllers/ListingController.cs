@@ -88,7 +88,7 @@ namespace CraigslistClone.Controllers
         /// </summary>
         /// <param name="id"> ThreadId </param>
         /// <returns> NewListingModel: A container for some Thread information and the currently logged in user. </returns>
-        public IActionResult Create(int id)
+        public IActionResult Create(int id, bool failedCreate)
         {
             var thread = _listingService.GetHostThread(id);
 
@@ -96,7 +96,8 @@ namespace CraigslistClone.Controllers
             {
                 ThreadName = thread.Title,
                 ThreadID = thread.Id,
-                AuthorName = User.Identity.Name // Gets the current logged in user
+                AuthorName = User.Identity.Name, // Gets the current logged in user
+                failedCreate = failedCreate
             };
             return View(model);
         }
@@ -110,14 +111,19 @@ namespace CraigslistClone.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPost(NewListingModel model)
         {
-            var userId = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(userId);
+            if (ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
+                var user = await _userManager.FindByIdAsync(userId);
 
-            var listing = BuildListing(model, user);
+                var listing = BuildListing(model, user);
 
-            await _listingService.Add(listing);
+                await _listingService.Add(listing);
 
-            return RedirectToAction("Index", "Listing", new { @id = listing.Id });
+                return RedirectToAction("Index", "Listing", new { @id = listing.Id });
+            }
+            else
+                return RedirectToAction("Create", "Listing", new { @id = model.ThreadID, @failedCreate = true });
         }
 
         /// <summary>
@@ -230,6 +236,16 @@ namespace CraigslistClone.Controllers
             await _listingService.EditListing(listing);
 
             return RedirectToAction("Index", "Listing", new { @id = model.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteListing(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            await _listingService.Delete(id);
+            return RedirectToAction("Index", "UserListings", new { @id = userId });
         }
 
         /// <summary>

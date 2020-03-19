@@ -118,9 +118,22 @@ namespace CraigslistClone.Models.Services
         /************************************************************************************************/
         // Unused, will be implimented if i continue the project
 
-        Task IListing.Delete(int id)
+        async Task IListing.Delete(int id)
         {
-            throw new NotImplementedException();
+            var listing =_context.Listings.Find(id);
+            var images = _context.ListingImages.Where( img => img.ListingId == id ).ToList();
+
+            _context.Listings.Remove(listing);
+
+            if(images.Count > 0)
+            {
+                foreach (var img in images)
+                {
+                    _context.ListingImages.Remove(img);
+                }
+            }
+
+            await _context.SaveChangesAsync();
         }
         /************************************************************************************************/
 
