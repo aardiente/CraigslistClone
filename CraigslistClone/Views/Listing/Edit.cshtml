@@ -1,5 +1,17 @@
 ﻿@model CraigslistClone.Models.Listing_Model.ListingIndexModel
 
+<style>
+    td {
+        background-color: aliceblue;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>
+
+
+
 <h1> Edit Post | @Model.Title </h1>
 
 <form asp-action="EditListing" method="post" id="editListingForm">

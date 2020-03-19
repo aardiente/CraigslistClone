@@ -8,24 +8,48 @@
             <tbody>
                 @foreach (var listing in Model.UserListings)
                 {
-                    <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id } ))'">
-                        <td>
-                            <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
-                                @listing.Title
-                            </a>
-                        </td>
-                        <td>
-                            Created: @listing.Created
-                        </td>
-                        <td>
-                            Expires: @listing.Expires
-                        </td>
-                        <td>
-                            <a asp-controller="Listing" asp-action="Edit" asp-route-id="@listing.Id">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
+                    @if (DateTime.Compare(listing.Expires, DateTime.Now) > 0)
+                    {
+                        <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id }))'">
+                            <td>
+                                <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                                    @listing.Title
+                                </a>
+                            </td>
+                            <td>
+                                Created: @listing.Created
+                            </td>
+                            <td>
+                                Expires: @listing.Expires
+                            </td>
+                            <td>
+                                <a asp-controller="Listing" asp-action="Edit" asp-route-id="@listing.Id">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr onclick="location.href = '@(Url.Action("Index", "Listing", new { Id = listing.Id }))'" style="background-color:lightgray;">
+                            <td>
+                                <a asp-controller="Listing" asp-action="Index" asp-route-id="@listing.Id">
+                                    @listing.Title
+                                </a>
+                            </td>
+                            <td>
+                                Created: @listing.Created
+                            </td>
+                            <td style="color: red">
+                                Expires: @listing.Expires
+                            </td>
+                            <td>
+                                <a asp-controller="Listing" asp-action="Edit" asp-route-id="@listing.Id">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

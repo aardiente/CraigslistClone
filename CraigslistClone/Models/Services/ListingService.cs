@@ -62,6 +62,7 @@ namespace CraigslistClone.Models.Services
         {
             var userListings = _context.Listings
                 .Where(listing => listing.User.Id == userId);
+                //.Include(l => l.hostThreadID);
 
             return userListings;
         }
