@@ -106,10 +106,13 @@ namespace CraigslistClone.Models.Services
         {
             _context.Add(listing);
 
-            foreach( ListingImage obj in listing.images )
+            if (listing.images != null)
             {
-                obj.ListingId = listing.Id;
-                _context.Add(obj);
+                foreach (ListingImage obj in listing.images)
+                {
+                    obj.ListingId = listing.Id;
+                    _context.Add(obj);
+                }
             }
 
             await _context.SaveChangesAsync();

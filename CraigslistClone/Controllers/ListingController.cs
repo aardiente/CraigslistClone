@@ -150,8 +150,8 @@ namespace CraigslistClone.Controllers
                 Price = model.Price,
                 Address = model.Address,
                 PhoneNumber = model.PhoneNumber,
-                images = ConvertListingImages(model.image, model.ThreadID, user.Id),
-                image = ConvertIFormFileToByteArray(model.image.First())
+                images = ConvertListingImages(model.image, model.ThreadID, user.Id)//,
+                //image = ConvertIFormFileToByteArray(model.image.First())
             };
         }
         
@@ -159,17 +159,23 @@ namespace CraigslistClone.Controllers
         {
             List<ListingImage> result = new List<ListingImage>();
 
-            foreach( IFormFile f in files )
+            if (files != null)
             {
-                result.Add(new ListingImage
+                foreach (IFormFile f in files)
                 {
-                    ThreadId = ThreadId,
-                    UserId = UserId,
-                    Data = ConvertIFormFileToByteArray(f)
-                }) ;
+                    result.Add(new ListingImage
+                    {
+                        ThreadId = ThreadId,
+                        UserId = UserId,
+                        Data = ConvertIFormFileToByteArray(f)
+                    });
+                }
+                return result;
             }
+            else
+                return null;
 
-            return result;
+            
         }
         private byte[] ConvertIFormFileToByteArray( IFormFile image )
         {
