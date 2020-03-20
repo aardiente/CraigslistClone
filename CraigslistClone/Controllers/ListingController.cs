@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using CraigslistClone.Models.Entity;
 using System.Collections.Generic;
 
+
 namespace CraigslistClone.Controllers
 {
     public class ListingController : Controller
@@ -277,8 +278,21 @@ namespace CraigslistClone.Controllers
         /// <param name="searchQuery"> User's search query </param>
         /// <returns> Returns a view with the search results. </returns>
         [HttpPost]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult SearchResults(string searchQuery)
         {
+            if (searchQuery.Length > 0)
+            {
+                Response.Cookies.Append("myKey", searchQuery,
+                    new CookieOptions()
+                    {
+                        Expires = DateTime.Now.AddMinutes(10)
+                    });
+
+            }
+            else 
+                searchQuery = Request.Cookies["myKey"];
+
             var r = _listingService.GetFilteredPost(searchQuery);
 
             var result = new SearchQueryModel
@@ -286,6 +300,8 @@ namespace CraigslistClone.Controllers
                 results = r,
                 query = searchQuery
             };
+
+            ViewBag.Results = result;
             return View( result );
         }
     }

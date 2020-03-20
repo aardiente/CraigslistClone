@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using CraigslistClone.Models;
 using CraigslistClone.Data;
 using CraigslistClone.Models.Listing_Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace CraigslistClone.Controllers
 {
@@ -39,6 +40,12 @@ namespace CraigslistClone.Controllers
             var Listings = _context.Listings
                     .Where(l => l.Created >= DateTime.Now.AddDays(-1)) // Gets all postings from yesterday at the current time.
                     .OrderByDescending(l => l.Created);
+
+            foreach (var list in Listings)
+            {
+                var test = _context.ListingImages.Where(l => l.ListingId == list.Id);
+                list.images = test;
+            }
 
             var model = new RecentListingModel
             {
