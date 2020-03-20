@@ -62,6 +62,7 @@ namespace CraigslistClone.Models.Services
         {
             var userListings = _context.Listings
                 .Where(listing => listing.User.Id == userId);
+                //.Include(l => l.hostThreadID);
 
             return userListings;
         }
@@ -105,10 +106,13 @@ namespace CraigslistClone.Models.Services
         {
             _context.Add(listing);
 
-            foreach( ListingImage obj in listing.images )
+            if (listing.images != null)
             {
-                obj.ListingId = listing.Id;
-                _context.Add(obj);
+                foreach (ListingImage obj in listing.images)
+                {
+                    obj.ListingId = listing.Id;
+                    _context.Add(obj);
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -118,9 +122,22 @@ namespace CraigslistClone.Models.Services
         /************************************************************************************************/
         // Unused, will be implimented if i continue the project
 
-        Task IListing.Delete(int id)
+        async Task IListing.Delete(int id)
         {
-            throw new NotImplementedException();
+            var listing =_context.Listings.Find(id);
+            var images = _context.ListingImages.Where( img => img.ListingId == id ).ToList();
+
+            _context.Listings.Remove(listing);
+
+            if(images.Count > 0)
+            {
+                foreach (var img in images)
+                {
+                    _context.ListingImages.Remove(img);
+                }
+            }
+
+            await _context.SaveChangesAsync();
         }
         /************************************************************************************************/
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,7 +13,11 @@ namespace CraigslistClone.Models
     public class Listing
     {
         public int Id { get; set; }
+
+        [Required]
         public string Title { get; set; }
+
+        [Required]
         public string Content { get; set; }
         public DateTime Created { get; set; }
         public DateTime Expires { get; set; }
@@ -30,6 +35,9 @@ namespace CraigslistClone.Models
         public IEnumerable<ListingImage> images { get; set; }
         public string Price { get; set; }
         public string Address { get; set; }
+
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
     }
 }

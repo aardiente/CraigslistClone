@@ -35,11 +35,12 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <!--<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>-->
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>-->
                         <!--<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>-->
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>-->
+
 
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Thread" asp-action="Index">Explore Listings</a>
@@ -51,7 +52,17 @@
                                 <a class="nav-link" asp-area="" asp-controller="UserListings" asp-action="Index">My Listings</a>
                             </li>
                         }
+                        <div class="align-content-center">
+                            @using (Html.BeginForm("SearchResults", "Listing", FormMethod.Post))
+                            {
+                                <form>
+                                    <input type="text" style="width: 275px; margin-left: 175px; margin-top:5px;" name="searchQuery" id="searchQuery" />
 
+                                    <!--<input type="submit" value="Search" />-->
+                                    <br />
+                                </form>
+                            }
+                        </div>
                     </ul>
                 </div>
             </div>

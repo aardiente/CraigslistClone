@@ -1,5 +1,17 @@
 ﻿@model CraigslistClone.Models.Listing_Model.ListingIndexModel
 
+<style>
+    td {
+        background-color: aliceblue;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>
+
+
+
 <h1> Edit Post | @Model.Title </h1>
 
 <form asp-action="EditListing" method="post" id="editListingForm">
@@ -28,9 +40,12 @@
         <textarea rows="20" asp-for="ListingContent" class="form-control"></textarea>
     </div>
 
-    <button type="submit" id="submitListingBtn" class="btn btn-submitPost btn-dark">
-        Save Changes
-    </button>
+    <div>
+        <button type="submit" id="submitListingBtn" class="btn btn-submitPost btn-dark">
+            Save Changes
+        </button>
+
+    </div>
 
     <input asp-for="Id" type="hidden" />
     <input asp-for="threadId" type="hidden" />
@@ -38,4 +53,12 @@
     <input asp-for="Expires" type="hidden" />
     <input asp-for="AuthorId" type="hidden" />
     <input asp-for="ListingContent" type="hidden" />
+</form>
+
+<form asp-action="DeleteListing" method="post" id="DeleteistingForm">
+    <button type="submit" id="deleteListingBtn" class="btn btn-submitPost btn-danger" onclick="return confirm('Are you sure you want to delete this listing?')">
+        Delete Changes
+    </button>
+
+    <input asp-for="Id" type="hidden" />
 </form>

@@ -67,7 +67,7 @@ namespace CraigslistClone.Data.Seeds
                 {
                     new Listing
                     {               Title = "Gaming PC",
-                                    Content = "Core i5 9600K\n16 GB DDR4 3200mhz\nXFX RX 580 8gb\nGigabyte Gaming SLI MOBO\nCooler Master H100",
+                                    Content = "Core i5 9600K\n16 GB DDR4 3200mhz\nEVGA 1660Ti super\nGigabyte Gaming SLI MOBO\nCooler Master H100",
                                     Created = DateTime.Today,
                                     Expires = DateTime.Today.AddDays(7),
                                     hostThread = context.Threads.Where( t => t.Title == "Computers" ).FirstOrDefault(),

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using CraigslistClone.Models.Entity;
 using System.Collections.Generic;
 
+
 namespace CraigslistClone.Controllers
 {
     public class ListingController : Controller
@@ -88,7 +89,7 @@ namespace CraigslistClone.Controllers
         /// </summary>
         /// <param name="id"> ThreadId </param>
         /// <returns> NewListingModel: A container for some Thread information and the currently logged in user. </returns>
-        public IActionResult Create(int id)
+        public IActionResult Create(int id, bool failedCreate)
         {
             var thread = _listingService.GetHostThread(id);
 
@@ -96,7 +97,8 @@ namespace CraigslistClone.Controllers
             {
                 ThreadName = thread.Title,
                 ThreadID = thread.Id,
-                AuthorName = User.Identity.Name // Gets the current logged in user
+                AuthorName = User.Identity.Name, // Gets the current logged in user
+                failedCreate = failedCreate
             };
             return View(model);
         }
@@ -110,14 +112,19 @@ namespace CraigslistClone.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPost(NewListingModel model)
         {
-            var userId = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(userId);
+            if (ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
+                var user = await _userManager.FindByIdAsync(userId);
 
-            var listing = BuildListing(model, user);
+                var listing = BuildListing(model, user);
 
-            await _listingService.Add(listing);
+                await _listingService.Add(listing);
 
-            return RedirectToAction("Index", "Listing", new { @id = listing.Id });
+                return RedirectToAction("Index", "Listing", new { @id = listing.Id });
+            }
+            else
+                return RedirectToAction("Create", "Listing", new { @id = model.ThreadID, @failedCreate = true });
         }
 
         /// <summary>
@@ -143,8 +150,8 @@ namespace CraigslistClone.Controllers
                 Price = model.Price,
                 Address = model.Address,
                 PhoneNumber = model.PhoneNumber,
-                images = ConvertListingImages(model.image, model.ThreadID, user.Id),
-                image = ConvertIFormFileToByteArray(model.image.First())
+                images = ConvertListingImages(model.image, model.ThreadID, user.Id)//,
+                //image = ConvertIFormFileToByteArray(model.image.First())
             };
         }
         
@@ -152,17 +159,23 @@ namespace CraigslistClone.Controllers
         {
             List<ListingImage> result = new List<ListingImage>();
 
-            foreach( IFormFile f in files )
+            if (files != null)
             {
-                result.Add(new ListingImage
+                foreach (IFormFile f in files)
                 {
-                    ThreadId = ThreadId,
-                    UserId = UserId,
-                    Data = ConvertIFormFileToByteArray(f)
-                }) ;
+                    result.Add(new ListingImage
+                    {
+                        ThreadId = ThreadId,
+                        UserId = UserId,
+                        Data = ConvertIFormFileToByteArray(f)
+                    });
+                }
+                return result;
             }
+            else
+                return null;
 
-            return result;
+            
         }
         private byte[] ConvertIFormFileToByteArray( IFormFile image )
         {
@@ -232,6 +245,16 @@ namespace CraigslistClone.Controllers
             return RedirectToAction("Index", "Listing", new { @id = model.Id });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteListing(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            await _listingService.Delete(id);
+            return RedirectToAction("Index", "UserListings", new { @id = userId });
+        }
+
         /// <summary>
         ///     A helper method for EditListing that actually changes the properties in the listing.
         /// </summary>
@@ -261,8 +284,21 @@ namespace CraigslistClone.Controllers
         /// <param name="searchQuery"> User's search query </param>
         /// <returns> Returns a view with the search results. </returns>
         [HttpPost]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult SearchResults(string searchQuery)
         {
+            if (searchQuery.Length > 0)
+            {
+                Response.Cookies.Append("myKey", searchQuery,
+                    new CookieOptions()
+                    {
+                        Expires = DateTime.Now.AddMinutes(10)
+                    });
+
+            }
+            else 
+                searchQuery = Request.Cookies["myKey"];
+
             var r = _listingService.GetFilteredPost(searchQuery);
 
             var result = new SearchQueryModel
@@ -270,6 +306,8 @@ namespace CraigslistClone.Controllers
                 results = r,
                 query = searchQuery
             };
+
+            ViewBag.Results = result;
             return View( result );
         }
     }
