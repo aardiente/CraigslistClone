@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace CraigslistClone.Views.Listings
 {
-    // Refactor store data in user
     public class ListingPostModel
     {
         public int Id { get; set; }

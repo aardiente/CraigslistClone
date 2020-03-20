@@ -71,6 +71,11 @@ namespace CraigslistClone.Models.Services
             return _context.Threads.Include( Thread => Thread.Listings );
         }
 
+        /// <summary>
+        ///     Gets the listing images of the given listing
+        /// </summary>
+        /// <param name="ListingId"> Listing to look for </param>
+        /// <returns></returns>
         IEnumerable<ListingImage> IThread.GetListingImages(int ListingId)
         {
             var userListings = _context.Listings
@@ -88,14 +93,12 @@ namespace CraigslistClone.Models.Services
             throw new NotImplementedException();
         }
 
-        Task IThread.Create(Thread listing)
+        Task IThread.Create(Thread listing) // Doesn't make sense for a user to create a listing category
         {
             throw new NotImplementedException();
         }
 
-
-
-        Task IThread.Delete(Thread t)
+        Task IThread.Delete(Thread t) // Deleting a category is a bad idea.
         {
             throw new NotImplementedException();
         }

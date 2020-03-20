@@ -120,7 +120,11 @@ namespace CraigslistClone.Models.Services
 
 
         /************************************************************************************************/
-        // Unused, will be implimented if i continue the project
+        /// <summary>
+        ///     Deletes a listing from the database
+        /// </summary>
+        /// <param name="id"> Id of the listing to be deleted </param>
+        /// <returns> Wait for DB to update </returns>
 
         async Task IListing.Delete(int id)
         {
@@ -174,7 +178,11 @@ namespace CraigslistClone.Models.Services
 
             return t;
         }
-
+        /// <summary>
+        ///     Pull the listing images form the database for use
+        /// </summary>
+        /// <param name="ListingId"> Identifies which listing we're pulling the images for </param>
+        /// <returns></returns>
         IEnumerable<ListingImage> IListing.GetListingImages( int ListingId )
         {
             var userListings = _context.Listings
