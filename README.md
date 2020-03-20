@@ -7,6 +7,8 @@ This website will allow users create listings for items they would like to sell.
   <b> Goals </b>
 </h1>
 <p>
+<h5> x = axed/cut </h5>
+  
 The main goal I have for this project will be implementing web services into my website.
   
 - Get basic auction site functionality
@@ -17,14 +19,17 @@ The main goal I have for this project will be implementing web services into my 
 
 - Optimized search results
 
-- Google maps to the provided addresses.
+- Google maps to the provided addresses. x
 
 - Have something that looks nicer than craigslist.
 
-- Sign in through google account (stretch goal)
+- Sign in through google account (stretch goal) x
 
-- Cloud Storage (stretch goal)
+- Cloud Storage (stretch goal) x
 
+</p>
+<p>
+  To work on this project, you'll need to create a branch from master. Open the project, run the project, open pack manager   console, run an update-database to make sure everything is seeded correctly. The test user login is Email: test@test.com Pass: test
 </p>
 <br>
 <h2><b>Contact Information:</b></h2>
