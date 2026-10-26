@@ -33,5 +33,4 @@ The main goal I have for this project will be implementing web services into my 
 </p>
 <br>
 <h2><b>Contact Information:</b></h2>
-The best way to get in contact with me is by the email listed below.
-- Email: anthony.ms.ardiente@gmail.com
+
